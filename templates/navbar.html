@@ -1,33 +1,40 @@
-<nav class="navbar navbar-expand-sm bg-light">
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/navbar.css')}}">
+{% endblock %}
+<nav class="navbar sticky-top navbar-expand-sm ">
 
-    <a class="navbar-brand" href="#">
-          <img src="images/logo_N.jpg" width="50" height="50" alt="">
-    </a>
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-              Home
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-              About
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-              Contact
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-              Tests
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-              Login
-            </a>
-        </li>
-    </ul>
+  <a class="navbar-brand" href="#">
+    <img class="logo" src="{{url_for('static', filename='img/logo.png')}}" width="50" height="50" alt="">
+  </a>
+  <ul class="navbar-nav ml-auto" >
+    <li class="nav-item" id="clickid1">
+      <a class="nav-link" href="#">
+        Home
+      </a>
+    </li>
+    <li class="nav-item" id="clickid2">
+      <a class="nav-link" href="#">
+        About
+      </a>
+    </li>
+    <li class="nav-item" id="clickid">
+      <a class="nav-link" href="#" >
+        Contact
+      </a>
+    </li>
+    <li class="nav-item" id="clickid4">
+      <a class="nav-link" href="#">
+        Tests
+      </a>
+    </li>
+    <li class="nav-item" id="clickid5">
+      <a class="nav-link" href="#">
+        Login
+      </a>
+    </li>
+  </ul>
 </nav>
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+{% endblock %}

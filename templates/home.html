@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block css %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
 {% endblock %}
@@ -8,13 +7,10 @@
 {% endblock %}
 
 {% block body %}
-<h1 id="heading">Home Page</h1>
-
-<ol>
-    {% for test in tests %}
-        <li>{{test}}</li>
-    {% endfor %}
-</ol>
+<div class="head">
+<img class="bg_black" src="{{url_for('static', filename='img/bg_black.png')}}" alt="This is an image">
+<p class="line-1 anim-typewriter">Nominator ...</p>
+</div>
 {% endblock %}
 
 {% block js %}

@@ -1,0 +1,36 @@
+.navbar{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 40px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: black;
+}
+.active{ 
+    text-decoration: underline;
+    background-color: blue;
+    color: white;
+}
+
+.nav-item{
+    padding-right: 50px;
+    font-size: medium;
+    text-transform: uppercase;
+}
+.nav-item a:hover{
+    text-decoration: underline;
+    color: white;
+}
+
+.nav-link{
+    color: white;
+    font-size: large;
+
+}
+.navbar-brand{
+    size: 20px;
+}
+.logo{
+    height: 45px;
+    width: 45px;
+}
