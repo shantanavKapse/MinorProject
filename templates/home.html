@@ -3,13 +3,40 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
 {% endblock %}
 {% block title %}
-{{heading}}
+    Home|Nominator
 {% endblock %}
 
 {% block body %}
 <div class="head">
-<img class="bg_black" src="{{url_for('static', filename='img/bg_black.png')}}" alt="This is an image">
-<p class="line-1 anim-typewriter">Nominator ...</p>
+    <div class="title-head">
+        <h1 class="front-img-text anim-typewriter">Nominator...</h1>
+    </div>
+    <div class="title-desc">
+        <span class="heading-description">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+        </span>
+    </div>
+</div>
+<div class="container">
+    <h1 class="block-heading">Tests</h1>
+    <ul class="test-list">
+        {% for test in tests %}
+            <a class="test-list-anchor" href="/test/{{test.id}}">
+                <li class="test-item">
+                    <div class="left-test-list">
+                        <h3>{{test.name}}</h3>
+                        <span>{{test.company_name}}</span>
+                    </div>
+                    <div class="right-test-list">
+                        <span>{{test.Creation_date.strftime('%Y-%m-%d')}}</span>
+                        <br>
+                        <span>{{test.Creation_date.strftime('%H:%M')}}</span>
+                    </div>
+                </li>
+            </a>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
 

@@ -1,23 +1,21 @@
+from app import app
+from flask import render_template
+from models import Test , Question
 
-from app import app , render_template
-from models import Test , Questions
 
 @app.route('/')
 def home():
-    test = [ "test1", "test2","test3","test4","test5"]
+    test = Test.query.order_by(Test.Creation_date.desc()).limit(5).all()
     return render_template('home.html' , tests = test)
 
 
-@app.route('/test')
-def test():
-    test = Test.query.all()
+@app.route('/tests')
+def tests():
+    all_tests = Test.query.all()
+    return render_template('tests.html', tests=all_tests)
 
-    return render_template('test.html', title = "Test List")
 
-
-@app.route('/questions')
-def question():
-    question = Questions.query.all()
-
-    return render_template('question.html' , title="Questions")
-
+@app.route('/tests/<int:id>')
+def test_detail(id):
+    test = Test.query.filter_by(id=id)
+    return render_template('test_detail.html', test=test)
