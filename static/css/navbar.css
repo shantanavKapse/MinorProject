@@ -65,3 +65,7 @@
 .nav-link:hover {
     color: white;
 }
+
+.active{
+    text-decoration:underline;
+}
