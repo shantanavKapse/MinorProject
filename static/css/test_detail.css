@@ -1,0 +1,55 @@
+.test-detail-main-container{
+    padding: 4em;
+}
+
+.test-detail-head{
+    margin-bottom: 4em;
+}
+
+.test-detail-head-left{
+    margin-bottom: 2em;
+}
+
+.test-detail-container{
+    padding: 3em;
+    box-shadow: 0 0 10px 5px #090909;
+    background-color: #161616;
+    display: flex;
+}
+
+.test-detail-container-left{
+    flex: 1;
+}
+
+.company-name{
+    font-size: 1.5em;
+    color: white;
+    position: relative;
+}
+
+.test-detail-container>span{
+    font-size: 1.2em;
+}
+
+.company-name:after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.company-name:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.company-name:hover {
+    color: white;
+    text-decoration: none;
+}

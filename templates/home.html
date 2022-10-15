@@ -20,23 +20,25 @@
 </div>
 <div class="container">
     <h1 class="block-heading">Tests</h1>
-    <ul class="test-list">
-        {% for test in tests %}
-            <a class="test-list-anchor" href="/test/{{test.id}}">
-                <li class="test-item">
-                    <div class="left-test-list">
-                        <h3>{{test.name}}</h3>
-                        <span>{{test.company_name}}</span>
-                    </div>
-                    <div class="right-test-list">
-                        <span>{{test.Creation_date.strftime('%Y-%m-%d')}}</span>
-                        <br>
-                        <span>{{test.Creation_date.strftime('%H:%M')}}</span>
-                    </div>
-                </li>
-            </a>
-        {% endfor %}
-    </ul>
+    {% if tests|length > 0 %}
+        <ul class="test-list">
+            {% for test in tests %}
+                <a class="test-list-anchor" href="/test/{{test.id}}">
+                    <li class="test-item">
+                        <div class="left-test-list">
+                            <h3>{{test.name}}</h3>
+                            <span>{{test.company_name}}</span>
+                        </div>
+                        <div class="right-test-list">
+                            <span>{{test.creation_date.strftime('%Y-%m-%d')}}</span>
+                            <br>
+                            <span>{{test.creation_date.strftime('%H:%M')}}</span>
+                        </div>
+                    </li>
+                </a>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </div>
 {% endblock %}
 

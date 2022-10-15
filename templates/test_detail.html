@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{test.name}}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/test_detail.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="test-detail-main-container">
+        <div class="test-detail-head-left">
+            <div class="test-detail-head">
+                <h1>{{test.name}}</h1>
+            </div>
+            <div class="test-detail-container">
+                <div class="test-detail-container-left">
+                    <span>
+                        Created By
+                    </span>
+                    <h5>
+                        <a class="company-name" href="#">{{test.company_name}}</a>
+                    </h5>
+                </div>
+                <div class="test-detail-container-right">
+                    <span>
+                        Uploaded on
+                    </span>
+                    <h5>{{test.creation_date.strftime('%Y-%m-%d')}}</h5>
+                    <h5>{{test.creation_date.strftime('%H:%M')}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

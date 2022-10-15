@@ -62,7 +62,7 @@
 .test-list{
     background-color: #181818;
     margin: 3em 0;
-    box-shadow: 0 0 12px 2px #303030;
+    box-shadow: 0 0 12px 2px #060606;
     list-style: none;
     padding: 0.05em 2em;
     border-radius: 5px;
@@ -78,7 +78,7 @@
 }
 
 .test-item:hover{
-    box-shadow: 0 0 10px 2px #404040;
+    box-shadow: 0 0 10px 2px #080808;
     transform: scale(1.02);
 }
 

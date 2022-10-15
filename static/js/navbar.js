@@ -1,5 +1,5 @@
-$("#clickid1,#clickid2,#clickid3,#clickid4,#clickid5").click(function(){
-    $('.active').classList.remove('active');
-    $(this).classList.add('active');
-});
+const title = document.querySelector("title").text;
 
+if (title.trim() == "Home|Nominator"){
+    document.querySelector('#clickid1').querySelector('a').classList.add("active");
+}
