@@ -3,6 +3,7 @@ from flask import render_template
 from models import Test , Question
 
 
+
 @app.route('/')
 def home():
     test = Test.query.order_by(Test.creation_date.desc()).limit(5).all()
@@ -19,3 +20,12 @@ def tests():
 def test_detail(id):
     test = Test.query.filter_by(id=id).first()
     return render_template('test_detail.html', test=test)
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+
+
