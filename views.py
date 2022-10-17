@@ -28,12 +28,17 @@ def about():
     return render_template('about.html')
 
 
-"""@app.route('/Personality-Test')
+@app.route('/Personality-Test')
 def personality_test():
-    ques_op = Question.query.filter_by(domain_name='openness_criteria').all() 
-    ques_nc = Question.query.filter_by(domain_name='neuroticism_criteria').all() 
-    ques_ev = Question.query.filter_by(domain_name='extraversion_criteria').all() 
-    ques_ac = Question.query.filter_by(domain_name='agreeableness_criteria').all() 
-    ques_cc = Question.query.filter_by(domain_name='conscientiousness_criteria').all()
+    ques_op = random.choices(Question.query.filter_by(domain_name='openness_criteria').all(),k=2) 
+    ques_nc = random.choices(Question.query.filter_by(domain_name='neuroticism_criteria').all(),k=2) 
+    ques_ev = random.choices(Question.query.filter_by(domain_name='extraversion_criteria').all(),k=2) 
+    ques_ac = random.choices(Question.query.filter_by(domain_name='agreeableness_criteria').all(),k=2) 
+    ques_cc = random.choices(Question.query.filter_by(domain_name='conscientiousness_criteria').all(),k=2)
 
-    return render_template('test.html')"""
+    ques_lis=[]
+    [ques_lis.extend(l) for l in (ques_op,ques_nc,ques_ev,ques_ac,ques_cc)]
+    random.shuffle(ques_list)
+    
+
+    return render_template('test.html',list_of_question=ques_lis)
