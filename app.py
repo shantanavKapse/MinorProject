@@ -1,7 +1,7 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from random import random
+
 
 # Database configuration code.
 app = Flask(__name__)
