@@ -1,71 +1,84 @@
-.navbar{
-    background-color: #050505;
-    padding: 1.2em;
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
 }
 
-.nav-item{
-    padding-right: 50px;
-    font-size: medium;
-    text-transform: uppercase;
-}
-
-.nav-link{
-    color: white;
-    font-size: large;
-    display: inline-block;
-    position: relative;
-}
-
-#logo{
+#logo {
     border-radius: 15px;
     height: 50px;
     width: 50px;
+    margin-top: 18px;
+    margin-left: 40px;
 }
 
-#nav-left{
-    display: flex;
+nav {
+    background-color: #121212;
+    height: 80px;
+    width: 100%;
 }
 
-#nav-right{
-    display: flex;
-    justify-content: flex-end;
-    margin-left: auto;
+nav ul {
+    float: right;
+    margin-right: 20x;
 }
 
-.active:after{
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(1) !important;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: white;
-  transform-origin: bottom left;
+nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin-right: 50px;
 }
 
-.nav-link:after{
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: white;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-
-.nav-link:hover:after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-.nav-link:hover {
+nav ul li a {
     color: white;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
 }
 
-.active{
-    text-decoration:none;
+.checkbtn {
+    font-size: 25px;
+    color: white;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+    text-decoration: none;
+}
+
+.active {
+    display: block !important;
+}
+
+@media (max-width: 844px) {
+    .mainnav {
+        display: none;
+    }
+
+    .checkbtn {
+        display: block;
+    }
+
+    ul {
+        position: fixed;
+        width: 100%;
+        height: max-content;
+        background-color: #121212;
+        top: 80px;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+
+    nav ul li a {
+        font-size: 20px;
+    }
 }
