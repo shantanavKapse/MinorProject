@@ -1,5 +1,5 @@
 
-from app import app
+from app import app, random
 from flask import render_template
 from models import Test , Question
 
@@ -38,7 +38,7 @@ def personality_test():
 
     ques_lis=[]
     [ques_lis.extend(l) for l in (ques_op,ques_nc,ques_ev,ques_ac,ques_cc)]
-    random.shuffle(ques_list)
+    random.shuffle(ques_lis)
     
 
     return render_template('test.html',list_of_question=ques_lis)
