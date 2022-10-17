@@ -1,19 +1,24 @@
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/navbar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
 {% endblock %}
-
-<nav class="sticky-top">
-    <a href="#" onclick="showNav()" id="access_nav" class="checkbtn"><i class="fa fa-bars"></i></a>
-    <label>
-        <a href="#"><img id="logo" src="{{url_for('static', filename='img/logo.png')}}" width="50" height="50" alt=""></a>
-    </label>
-    <ul class="mainnav">
-        <li class="nav-item" id="clickid1"><a class="nav-link" href="/">home</a></li>
-        <li class="nav-item" id="clickid2"><a class="nav-link" href="/about">about</a></li>
-        <li class="nav-item" id="clickid3"><a class="nav-link" href="#">tests</a></li>
-        <li class="nav-item" id="clickid4"><a class="nav-link" href="#">contact us</a></li>
-        <li class="nav-item" id="clickid5"><a class="nav-link" href="#">login</a></li>
-    </ul>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">
+            <img id="logo" src="{{url_for('static', filename='img/logo.png')}}" width="50" height="50" alt="CoolBrand">
+        </a>
+        <button type="button" class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon bg-light"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto">
+                <a href="#" class="nav-item nav-link active">Home</a>
+                <a href="#" class="nav-item nav-link">About</a>
+                <a href="#" class="nav-item nav-link">Tests</a>
+                <a href="#" class="nav-item nav-link">Contact Us</a>
+                <a href="#" class="nav-item nav-link">Login</a>
+            </div>
+        </div>
+    </div>
 </nav>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% block js %}
