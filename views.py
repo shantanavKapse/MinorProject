@@ -1,3 +1,4 @@
+
 from app import app
 from flask import render_template
 from models import Test , Question
@@ -27,5 +28,12 @@ def about():
     return render_template('about.html')
 
 
+"""@app.route('/Personality-Test')
+def personality_test():
+    ques_op = Question.query.filter_by(domain_name='openness_criteria').all() 
+    ques_nc = Question.query.filter_by(domain_name='neuroticism_criteria').all() 
+    ques_ev = Question.query.filter_by(domain_name='extraversion_criteria').all() 
+    ques_ac = Question.query.filter_by(domain_name='agreeableness_criteria').all() 
+    ques_cc = Question.query.filter_by(domain_name='conscientiousness_criteria').all()
 
-
+    return render_template('test.html')"""
