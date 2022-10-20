@@ -1,21 +1,25 @@
 {% block css %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
 {% endblock %}
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+<nav class="navbar sticky-top navbar-expand-md navbar-light bg-dark">
     <div class="container-fluid">
         <a href="#" class="navbar-brand">
             <img id="logo" src="{{url_for('static', filename='img/logo.png')}}" width="50" height="50" alt="CoolBrand">
         </a>
-        <button type="button" class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon bg-light"></span>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <div class="nav-ham" onclick="changeNav()">
+                <div class="bar" id="bar1"></div>
+                <div class="bar" id="bar2"></div>
+                <div class="bar" id="bar3"></div>
+            </div>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto">
-                <a href="#" class="nav-item nav-link active">Home</a>
-                <a href="#" class="nav-item nav-link">About</a>
-                <a href="#" class="nav-item nav-link">Tests</a>
-                <a href="#" class="nav-item nav-link">Contact Us</a>
-                <a href="#" class="nav-item nav-link">Login</a>
+                <a href="/" id="clickid1" class="nav-item nav-link">Home</a>
+                <a href="/about" id="clickid2" class="nav-item nav-link">About Us</a>
+                <a href="#" id="clickid3" class="nav-item nav-link">Tests</a>
+                <a href="#" id="clickid4" class="nav-item nav-link">Contact Us</a>
+                <a href="#" id="clickid5" class="nav-item nav-link">Login</a>
             </div>
         </div>
     </div>

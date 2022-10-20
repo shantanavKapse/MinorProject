@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
 {% endblock %}
 {% block title %}
-    Home|Nominator
+Home|Nominator
 {% endblock %}
 
 {% block body %}
 <div class="head">
+    <img class="bg-image img-fluid" src="/static/img/bg-image.jpg" alt="" style="width:100%" ;>
+    <div class="head-text">
+        <div class="title-head">
+            <h1 class="front-img-text anim-typewriter">Nominator...</h1>
+        </div>
+        <div class="title-desc">
+            <span class="heading-description">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="head">
     <div class="title-head">
         <h1 class="front-img-text anim-typewriter">Nominator...</h1>
     </div>
@@ -39,7 +54,7 @@
             {% endfor %}
         </ul>
     {% endif %}
-</div>
+</div> -->
 {% endblock %}
 
 {% block js %}

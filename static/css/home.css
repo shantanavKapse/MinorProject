@@ -1,39 +1,36 @@
 @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
-.head{
-    width: 100%;
-    height: 700px;
-    background-image: url('/static/img/bg_black.jpg');
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+
+.head {
+  position: relative;
+  text-align: center;
+  justify-content: center;
 }
 
-.title-head{
-    display: flex;
-    align-items: center;
+.head-text {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.title-desc{
-    display: flex;
-    align-items: center;
-    width: 60%;
-    padding-top: 2.5em;
+.bg-image {
+  height: 90vh;
 }
 
 .front-img-text {
-  width: 14ch;
+  width: 100%;
   height: max-content;
+  font-weight: bold;
   animation: typing 1.5s steps(14), blink .5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
   color: white;
   border-right: 8px solid;
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
+  margin: 0 auto;
+  letter-spacing: .15em;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 6em;
+  font-size: 6rem;
 }
 
 @keyframes typing {
@@ -48,54 +45,37 @@
   }
 }
 
-.block-heading{
-    font-size: 4em;
-    padding-top: 1em;
-    text-decoration: underline;
+@media (max-width:835px) {
+  .front-img-text {
+    font-size: 4rem;
+  }
+  .bg-image{
+    height: 70vh !important;
+  }
 }
 
-.heading-description{
-    color: white;
-    display: flex;
+@media (max-width:615px) {
+  .front-img-text {
+    font-size: 3rem;
+  }
 }
 
-.test-list{
-    background-color: #181818;
-    margin: 3em 0;
-    box-shadow: 0 0 12px 2px #060606;
-    list-style: none;
-    padding: 0.05em 2em;
-    border-radius: 5px;
+@media (max-width:540px) {
+  .title-desc {
+    font-size: 0.7rem !important;
+  }
+
+  .bg-image {
+    height: 40vh !important;
+  }
 }
 
-.test-item{
-    background-color: #242424;
-    padding: 20px;
-    margin: 2.5em 0;
-    border-radius: 5px;
-    transition: transform .2s;
-    display: flex;
-}
+@media (max-width:480px) {
+  .front-img-text {
+    font-size: 2rem;
+  }
 
-.test-item:hover{
-    box-shadow: 0 0 10px 2px #080808;
-    transform: scale(1.02);
-}
-
-.test-list-anchor{
-    color: white;
-}
-
-.test-list-anchor:hover{
-    color: white;
-    text-decoration: none;
-}
-
-.left-test-list{
-    flex: 1;
-}
-
-.right-test-list{
-    text-align: right;
-    margin: auto 10px;
+  .title-des {
+    font-size: 0.7rem !important;
+  }
 }

@@ -1,8 +1,101 @@
-#logo{
+#logo {
     border-radius: 15px;
 }
-.nav-link{
+
+.navbar {
+    background-color: #121212 !important;
+}
+
+.nav-link {
     color: white !important;
-    margin-right: 30px;
     text-transform: uppercase;
+    margin: 0 15px;
+    display: inline-block;
+    position: relative;
+}
+
+
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #d63384;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.nav-link:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.active:after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+button {
+    background: rgb(122, 118, 118);
+    color: white;
+    border-radius: 4px;
+    size: 5px;
+}
+
+.nav-ham {
+    display: block;
+    width: 50px;
+    height: 50px;
+    float: right;
+    cursor: pointer;
+    padding-top: 11.5px;
+}
+
+.bar {
+    background-color: white;
+    display: block;
+    height: 5px;
+    width: 80%;
+    margin-left: 10%;
+    transition: 0.3s ease;
+}
+
+#bar2 {
+    transform: translateY(6px);
+}
+
+#bar3 {
+    transform: translateY(12px);
+}
+
+.change #bar1 {
+    /* transform: rotateZ(45deg) scaleX(0.5) translateY(-14px) translateX(20px);
+    background-color: white; */
+    transform: rotate(45deg) translateX(9px) translateY(9px) scaleX(0.75);
+}
+
+.change #bar2 {
+    /* background-color: white;
+    transform: rotateZ(-180deg) scaleX(0.75) translateX(-5px); */
+    opacity: 0;
+}
+
+.change #bar3 {
+    /* transform: rotateZ(-45deg) scaleX(0.5) translateY(14px) translateX(20px);
+    background-color: white; */
+    transform: rotate(-45deg) translateX(-2px) translateY(2px) scaleX(0.75);
+}
+
+.navbar-light .navbar-toggler {
+    color: transparent !important;
+    border: none !important;
+}
+
+
+.navbar-nav {
+    align-items: center;
+    margin: 1% 0;
 }
