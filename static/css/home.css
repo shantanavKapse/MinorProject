@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
 
+/* background image and animation css */
+body{
+  background-color: #121212;
+}
 .head {
   position: relative;
   text-align: center;
@@ -78,4 +82,13 @@
   .title-des {
     font-size: 0.7rem !important;
   }
+}
+
+/* Recent tests css */
+.test-cont {
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+.test-cont:hover {
+  transform: scale(1.05);
 }
