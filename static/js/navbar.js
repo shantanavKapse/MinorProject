@@ -1,11 +1,15 @@
 const title = document.querySelector("title").text;
 
-if (title.trim() == "Home|Nominator"){
+if (title.trim() == "Home | Nominator"){
     document.querySelector('#clickid1').classList.toggle("active");
 }
 
-if (title.trim() == "Home|About"){
+if (title.trim() == "Home | About"){
     document.querySelector('#clickid2').classList.toggle("active");
+}
+
+if (title.trim() == "Tests"){
+    document.querySelector('#clickid3').classList.toggle("active");
 }
 
 function changeNav() {
@@ -13,3 +17,4 @@ function changeNav() {
     document.querySelector(".menu-bg").classList.toggle("change-bg");
     document.querySelector(".main-nav").classList.toggle("change");
   }
+  
