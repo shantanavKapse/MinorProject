@@ -1,18 +1,29 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/questionnaire.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/questionnaire.css')}}">
 {% endblock %}
 {% block title %}
-    questionnaire
+questionnaire
 {% endblock %}
 
 {% block body %}
 <div class="questionnaire-body">
-    {% for question in list_of_question %}
-        <h6>{{question.name}}</h6>
-
-    {% endfor %}
+    <div class="container bg-dark text-white p-4">
+        <h4 class="text-decoration-underline">
+            Personality Test
+        </h4>
+        <div class="question mt-5 d-flex flex-column">
+            {% for question in list_of_question %}
+            <h5>{{question.name}}</h5>
+            <input type="range" class="scale form-range mt-4 align-self-center" min="1" max="5">
+            <h6><i class="fa-solid fa-circle mt-4" style="color: green;"></i>&nbsp;Agree</h6>
+            <h6><i class="fa-solid fa-circle" style="color: red;"></i>&nbsp;Disagree</h6>
+            <button type="button" class="btn btn-primary w-25 align-self-end">Next</button>
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
 {% endblock %}
 
 {% block js %}

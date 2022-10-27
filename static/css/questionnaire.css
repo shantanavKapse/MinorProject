@@ -1,3 +1,14 @@
-.questionnaire-body{
+.questionnaire-body {
     min-height: 40vh;
- }
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    border-radius: 50%;
+    background-image: linear-gradient(to right, red, yellow, green);
+    height: 30%;
+}
+
+.scale {
+    width: 70%;
+
+}
