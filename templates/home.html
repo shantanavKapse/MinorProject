@@ -23,34 +23,29 @@ Home | Nominator
 </div>
 
 <!-- Recent tests container -->
-<div class="container mt-5" style="margin-top: 5% !important">
-    <h1 class="block-heading">TESTS</h1>
-    <div class="row">
-        <div class="mt-3">
-            {% if tests|length > 0 %}
-            <ul class="list list-inline"
-                style="margin-top: 3%; margin-bottom: 5%">
-                {% for test in tests %}
-                <a class="test-list-anchor" href="/test/{{test.id}}">
-                <li class="rounded p-3 rounded d-flex justify-content-between">
-                    <div class="bg-gradient container-fluid shadow text-bg-dark rounded px-4 py-3 test-cont mb-3" style="color: white">
-                        <div class="row">
-                            <div class="col d-flex flex-column justify-content-between">
-                                <h5>{{test.name}}</h5>
-                                <h6><i style="padding-right: 10px" class="fa-solid fa-landmark"></i>{{test.company_name}}</h6>
-                            </div>
-                            <div class="col align-items-end d-flex flex-column justify-content-between">
-                                <h6>{{test.creation_date.strftime('%Y-%m-%d')}}</h6>
-                                <p>{{test.creation_date.strftime('%H:%M')}}</p>
-                            </div>
-                        </div>
-                    </div>
+<div class="container mt-5 mb-5">
+    <h1 class="test-heading">Tests</h1>
+    <div class="test-main-container">
+      {% if tests|length > 0 %}
+          <ul class="test-list-container">
+            {% for test in tests %}
+              <a href="/test/{{test.id}}" class="test-anchor">
+                <li class="test-container">
+                  <div class="test-container-row">
+                    <h4 class="test-elements">{{test.name}}</h4>
+                    <p class="test-elements">{{test.creation_date.strftime('%Y-%m-%d')}}</p>
+                  </div>
+                  <div class="test-container-row">
+                    <h6 class="test-elements">
+                      <i class="bi bi-bookmark-check-fill"></i>&nbsp;{{test.company_name}}
+                    </h6>
+                    <p class="test-elements">{{test.creation_date.strftime('%H:%M')}}</p>
+                  </div>
                 </li>
-                </a>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
+              </a>
+            {% endfor %}
+          </ul>
+      {% endif %}
     </div>
 </div>
 {% endblock %}

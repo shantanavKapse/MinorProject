@@ -17,7 +17,7 @@
 }
 
 .bg-image {
-  height: 90vh;
+  height: 71vw;
 }
 
 .front-img-text {
@@ -32,7 +32,7 @@
   margin: 0 auto;
   letter-spacing: .15em;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 6rem;
+  font-size: 40px;
 }
 
 @keyframes typing {
@@ -47,46 +47,108 @@
   }
 }
 
-@media (max-width:835px) {
-  .front-img-text {
-    font-size: 4rem;
-  }
-  .bg-image{
-    height: 70vh !important;
-  }
-}
-
-@media (max-width:615px) {
-  .front-img-text {
-    font-size: 3rem;
-  }
-}
-
-@media (max-width:540px) {
-  .title-desc {
-    font-size: 0.7rem !important;
-  }
-
-  .bg-image {
-    height: 40vh !important;
-  }
-}
-
-@media (max-width:480px) {
-  .front-img-text {
-    font-size: 2rem;
-  }
-
-  .title-des {
-    font-size: 0.7rem !important;
-  }
-}
-
 /* Recent tests css */
-.test-cont {
-  transition: 0.2s ease;
-  cursor: pointer;
+.test-main-container {
+  display: flex;
+  justify-content: center;
 }
-.test-cont:hover {
-  transform: scale(1.05);
+
+.test-heading {
+  text-align: center;
+  margin: 40px 0;
+  text-decoration: underline;
+  font-size: 40px;
+}
+
+.test-anchor{
+  text-decoration: none;
+  color: white;
+}
+
+.test-anchor:hover{
+  text-decoration: none;
+  color: white;
+  transform: scale(1.02);
+}
+
+.test-list-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  list-style: none;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  width: 300px;
+}
+
+.test-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 280px;
+}
+
+
+
+.test-container-row {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+}
+
+@media screen and (min-width: 480px){
+    .front-img-text{
+        font-size: 50px;
+    }
+
+/*    .bg-image{
+        height: 50vh;
+    }*/
+}
+
+
+@media screen and (min-width: 640px) {
+  .test-list-container {
+    width: 600px;
+  }
+
+  .test-container {
+    width: 560px;
+  }
+
+  .front-img-text{
+    font-size: 60px;
+  }
+
+  .bg-image{
+    height: 44vw;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .test-list-container {
+    width: 860px;
+  }
+
+  .test-container {
+    width: 820px;
+  }
+
+  .front-img-text{
+    font-size: 80px;
+  }
+
+/*  .bg-image{
+    height: 90vh;
+  }*/
+}
+
+.test-elements {
+  line-height: 30px;
 }
