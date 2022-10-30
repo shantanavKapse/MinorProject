@@ -10,5 +10,14 @@ input[type='range']::-webkit-slider-runnable-track {
 
 .scale {
     width: 70%;
+}
 
+.question{
+    display: none;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.active{
+    display: flex;
 }

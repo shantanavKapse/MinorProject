@@ -8,23 +8,32 @@ questionnaire
 
 {% block body %}
 <div class="questionnaire-body">
-    <div class="container bg-dark text-white p-4">
-        <h4 class="text-decoration-underline">
+    <div class="container rounded shadow-lg bg-dark text-white p-4 my-5">
+        <h4 class="text-decoration-underline text-center fs-1 mb-5">
             Personality Test
         </h4>
-        <div class="question mt-5 d-flex flex-column">
-            {% for question in list_of_question %}
-            <h5>{{question.name}}</h5>
-            <input type="range" class="scale form-range mt-4 align-self-center" min="1" max="5">
-            <h6><i class="fa-solid fa-circle mt-4" style="color: green;"></i>&nbsp;Agree</h6>
-            <h6><i class="fa-solid fa-circle" style="color: red;"></i>&nbsp;Disagree</h6>
-            <button type="button" class="btn btn-primary w-25 align-self-end">Next</button>
-            {% endfor %}
-        </div>
+        <form action="" method="post" class="personality-test-form">
+            <div class="pt-5 d-flex flex-column mt-5">
+                {% for question in list_of_question %}
+                    <div class="question">
+                        <h5 class="text-center">Q{{loop.index0+1}}.&nbsp;)&nbsp;&nbsp;{{question.name}}</h5>
+                        <input type="range" name="{{question.tag}}" class="scale form-range my-5 align-self-center" min="1" max="5">
+                        <h6><i class="fa-solid fa-circle mt-4" style="color: green;"></i>&nbsp;Agree</h6>
+                        <h6><i class="fa-solid fa-circle" style="color: red;"></i>&nbsp;Disagree</h6>
+                            {% if loop.index0 == 9 %}
+                                <button type="submit" class="submit-btn btn btn-primary w-25 align-self-end">Submit</button>
+                            {% else %}
+                                <button type="button" class="next-btn btn btn-primary w-25 align-self-end">Next</button>
+                            {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
     </div>
 </div>
 
 {% endblock %}
 
 {% block js %}
+<script src="{{url_for('static', filename='js/questionnaire.js')}}"></script>
 {% endblock %}
