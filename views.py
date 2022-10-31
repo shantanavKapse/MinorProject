@@ -44,14 +44,25 @@ def personality_test():
 
     if request.method == 'POST':
         data = request.form
-        prediction_data = {}
-        for tag, ans in data.items():
-            prediction_data[tag] = ans
 
-        print(predict_personality(prediction_data))
+        return redirect(url_for('answer_page', json=json.dumps(data)), code=307)
 
     ques_lis=[]
     [ques_lis.extend(l) for l in (ques_op,ques_nc,ques_ev,ques_ac,ques_cc)]
     random.shuffle(ques_lis)
 
     return render_template('questionnaire.html', list_of_question=ques_lis)
+
+
+@app.route('/answer', methods=['POST'])
+def answer_page():
+    if request.method == 'POST':
+        data = request.form
+
+        prediction_data = {}
+        for tag, ans in data.items():
+            prediction_data[tag] = ans
+
+        ans = predict_personality(prediction_data)
+        print(ans)
+        return render_template('answer_page.html', results=ans)
