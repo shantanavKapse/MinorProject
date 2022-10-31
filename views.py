@@ -2,7 +2,8 @@ import json
 
 from app import app
 from flask import flash, render_template, request, session , redirect, url_for
-from models import Test , Question
+from models import Test, Question
+from personality_predict import predict_personality
 import random
 
 
@@ -43,8 +44,11 @@ def personality_test():
 
     if request.method == 'POST':
         data = request.form
+        prediction_data = {}
         for tag, ans in data.items():
-            print(f"tag: {tag}, answer: {ans}")
+            prediction_data[tag] = ans
+
+        print(predict_personality(prediction_data))
 
     ques_lis=[]
     [ques_lis.extend(l) for l in (ques_op,ques_nc,ques_ev,ques_ac,ques_cc)]
