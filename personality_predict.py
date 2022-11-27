@@ -1,10 +1,20 @@
 import json
+import math
 import numpy as np
 import joblib
 
 questions = open('questions.json', 'r').read()
 questions = json.loads(questions)
 q_ids = list(questions['questions'].keys())
+
+
+answer_type = np.array([
+    1, -1, 1, -1, 1, -1, 1, -1, 1, -1,
+    1, -1, 1, -1, 1, 1, 1, 1, 1, 1,
+    -1, 1, -1, 1, -1, 1, -1, 1, 1, 1,
+    1, -1, 1, -1, 1, -1, 1, -1, 1, 1,
+    1, -1, 1, -1, 1, -1, 1, -1, 1, 1
+])
 
 
 def predict_personality(data):
@@ -14,7 +24,15 @@ def predict_personality(data):
     nis = (init_arr - 1) / 4
     model = joblib.load('personality_predict.joblib')
 
-    ans = [round(1 - min(abs(cluster[indices] - nis[indices])) * 10, 4) for cluster in model.cluster_centers_]
+    cluster = model.predict(nis)
+
+    ans_vals = (init_arr[indices]-3)*answer_type[indices]
+
+    ans = []
+
+    for i in range(5):
+        ind = i * 2
+        ans.append(round(((sum(ans_vals[ind:ind + 2]) + 4) / 8) * 100, 1))
 
     ans_obj = {
         "Extraversion": ans[0],
@@ -22,6 +40,7 @@ def predict_personality(data):
         "Agreeableness": ans[2],
         "Conscientiousness": ans[3],
         "Open to experience": ans[4],
+        "cluster": cluster
     }
 
     return ans_obj
