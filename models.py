@@ -27,3 +27,13 @@ class Question(db.Model):
 
     def __repr__(self):
         return f"{self.id}: {self.name}"
+
+class Company(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text(), unique=True, nullable=False)
+    location = db.Column(db.Text(),nullable=False)
+    branches = db.Column(db.Text(),nullable=False)
+    hire = db.Column(db.Integer,nullable=False) # number of candidates hire by this company till date 
+
+    def __repr__(self):
+        return f"{self.id}: {self.name}"

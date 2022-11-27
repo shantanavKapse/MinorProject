@@ -2,7 +2,7 @@ import json
 
 from app import app
 from flask import flash, render_template, request, session , redirect, url_for
-from models import Test, Question
+from models import Test, Question , Company
 from personality_predict import predict_personality
 import random
 
@@ -66,3 +66,8 @@ def answer_page():
         ans = predict_personality(prediction_data)
         print(ans)
         return render_template('answer_page.html', results=ans)
+    
+@app.route('/company')
+def company():
+    all_company = Company.query.all()
+    return render_template('company.html', company=all_company)
