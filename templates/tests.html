@@ -8,7 +8,29 @@
 
 {% block body %}
 <div class="test-body">
-    
+    <div class="container mt-5 mb-5">
+        <h1 class="test-heading">Tests</h1>
+        <div class="test-main-container">
+          {% if tests|length > 0 %}
+              <ul class="test-list-container">
+                {% for test in tests %}
+                    <li class="test-container">
+                      <div class="test-container-row">
+                        <h4 class="test-elements">{{test.name}}</h4>
+                        <p class="test-elements">{{test.creation_date.strftime('%Y-%m-%d')}}</p>
+                      </div>
+                      <div class="test-container-row">
+                        <h6 class="test-elements">
+                          <i class="bi bi-bookmark-check-fill"></i>&nbsp;{{test.company_name}}
+                        </h6>
+                        <p class="test-elements">{{test.creation_date.strftime('%H:%M')}}</p>
+                      </div>
+                    </li>
+                {% endfor %}
+              </ul>
+          {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}
 
