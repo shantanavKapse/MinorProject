@@ -12,6 +12,14 @@ if (title.trim() == "Tests"){
     document.querySelector('#clickid3').classList.toggle("active");
 }
 
+if (title.trim()=="Home | Company"){
+    document.querySelector('#clickid4').classList.toggle("active")
+}
+
+if (title.trim()=="Home | Login"){
+    document.querySelector('#clickid5').classList.toggle("active")
+}
+
 function changeNav() {
     document.querySelector(".nav-ham").classList.toggle("change");
     document.querySelector(".menu-bg").classList.toggle("change-bg");

@@ -14,6 +14,7 @@
           {% if tests|length > 0 %}
               <ul class="test-list-container">
                 {% for test in tests %}
+                <a href="/test/{{test.id}}" class="test-anchor">
                     <li class="test-container">
                       <div class="test-container-row">
                         <h4 class="test-elements">{{test.name}}</h4>
@@ -26,6 +27,7 @@
                         <p class="test-elements">{{test.creation_date.strftime('%H:%M')}}</p>
                       </div>
                     </li>
+                </a>
                 {% endfor %}
               </ul>
           {% endif %}

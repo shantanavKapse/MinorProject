@@ -29,7 +29,7 @@ body{
     left: 0;
     background-color: #d63384;
     transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
+    transition: transform 0.50s ease-out;
 }
 
 .nav-link:hover:after {
