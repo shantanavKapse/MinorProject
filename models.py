@@ -1,5 +1,7 @@
 from app import db
 from datetime import datetime
+from flask_login import UserMixin
+
 
 class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,12 +30,8 @@ class Question(db.Model):
     def __repr__(self):
         return f"{self.id}: {self.name}"
 
-class Company(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text(), unique=True, nullable=False)
-    location = db.Column(db.Text(),nullable=False)
-    branches = db.Column(db.Text(),nullable=False)
-    hire = db.Column(db.Integer,nullable=False) # number of candidates hire by this company till date 
+class User(UserMixin, db.Model):
+    username = db.Column(db.String, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
 
-    def __repr__(self):
-        return f"{self.id}: {self.name}"

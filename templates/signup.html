@@ -7,15 +7,15 @@
 {% endblock %}
 
 {% block body %}
-<div class="signup-body">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class ="notification is-danger">
-        {{messages[0] }} Go to <a herf="{{url_for('auth.login') }}">login page</a>
-    </div>
-    {% end if %}
-    {% end with %}
-    
+<div>
+    <a href="/signup-candidate">
+        signup as an candidate
+    </a>
+</div>
+<div>
+    <a href="/signup-company">
+        signup as an company
+    </a>
 </div>
 {% endblock %}
 
