@@ -10,8 +10,12 @@ auth = Blueprint('auth', __name__)
 def signup():
     return render_template('signup.html')
 
+@auth.route('/signup-candidate')
+def signup_candidate():
+    return render_template('signupcandidate.html')
+
 @auth.route('/signup-candidate', methods=['POST'])
-def signup_post():
+def signup_candidate_post():
     email = request.form.get('email')
     username = request.form.get('username')
     password = request.form.get('password')

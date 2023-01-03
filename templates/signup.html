@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/about.css' )}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='' )}}">
 {% endblock %}
 {% block title %}
     Home | Login
@@ -8,15 +8,26 @@
 
 {% block body %}
 <div>
+    <a href="/login-candidate">
+        Login as candidate
+    </a>
+</div>
+<div>
+    <a href="/login-company">
+        Login as company
+    </a>
+</div>
+<div>
     <a href="/signup-candidate">
-        signup as an candidate
+        signup as candidate
     </a>
 </div>
 <div>
     <a href="/signup-company">
-        signup as an company
+        signup as company
     </a>
 </div>
+
 {% endblock %}
 
 {% block js %}
