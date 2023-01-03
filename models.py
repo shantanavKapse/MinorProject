@@ -31,7 +31,21 @@ class Question(db.Model):
         return f"{self.id}: {self.name}"
 
 class User(UserMixin, db.Model):
-    username = db.Column(db.String, primary_key=True)
+    username = db.Column(db.String(100), primary_key=True)
     email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
+    password = db.Column(db.String(100), unique = True, nullable=False)
 
+class Candidate(User):
+    firstname = db.Column(db.String(100),unique = True, nullable=False)
+    middlename = db.Column(db.String(100))
+    lastname = db.Column(db.String(100))
+    linkedin = db.Column(db.String(100))
+    github = db.Column(db.String(100))
+    resume = db.Column(db.BLOB)
+
+class Company(User):
+    companyname = db.Column(db.String(100),unique = True, nullable=False)
+    website = db.Column(db.String(100),unique = True, nullable=False)
+    desc = db.Column(db.String(10000), nullable= False)
+    founder = db.Column(db.String(100))
+    founded_on = db.Column(db.DateTime)
