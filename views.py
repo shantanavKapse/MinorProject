@@ -1,5 +1,7 @@
 import json
 
+from flask_login import login_required
+
 from app import app
 from flask import flash, render_template, Blueprint, request, session , redirect, url_for
 from models import Test, Question
@@ -20,6 +22,7 @@ def tests():
 
 
 @app.route('/test/<int:id>' , methods=['GET', 'POST'])
+@login_required
 def test_detail(id):
     test = Test.query.filter_by(id=id).first()
     if request.method=="POST":
@@ -34,6 +37,7 @@ def about():
 
 
 @app.route('/personality-test', methods=['GET', 'POST'])
+@login_required
 def personality_test():
     ques_op = random.choices(Question.query.filter_by(domain_name='Openness').all(),k=2) 
     ques_nc = random.choices(Question.query.filter_by(domain_name='Neuroticism').all(),k=2) 

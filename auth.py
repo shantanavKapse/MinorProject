@@ -30,7 +30,7 @@ def signup_candidate_post():
     user = User.query.filter_by(username=username).first()
 
     if user:
-        flash('Email address already exists.')
+        flash('Username already exist.')
         return redirect(url_for('auth.login_candidate'))
 
     new_user = Candidate(email=email, username=username, password=generate_password_hash(password, method='sha256'), firstname=firstname , middlename=middlename, lastname=lastname , resume=resume, linkedin=linkedin, github=github)
@@ -58,7 +58,7 @@ def signup_company_post():
     user = User.query.filter_by(username=username).first()
 
     if user:
-        flash('Email address already exists.')
+        flash('Username already exist.')
         return redirect(url_for('auth.login_candidate'))
 
     new_user = Company(email=email, username=username, password=generate_password_hash(password, method='sha256'), companyname=companyname, website=website, desc=desc , founder=founder, founded_on=founded_on)
@@ -74,11 +74,10 @@ def login_candidate():
 @auth.route('/login-candidate', methods=['POST'])
 def login_candidate_post():
     username = request.form.get('username')
-    email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(email=email ).filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
 
     if not user and not check_password_hash(user.password, password):
         flash('Please check your login details and try again.')
@@ -96,11 +95,10 @@ def login_company():
 @auth.route('/login-company', methods=['POST'])
 def login_company_post():
     username = request.form.get('username')
-    email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(email=email).filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
 
     if not user and not check_password_hash(user.password, password):
         flash('Please check your login details and try again.')
