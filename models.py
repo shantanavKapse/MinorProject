@@ -22,6 +22,7 @@ class Test(db.Model):
  
 
 class Question(db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text(), unique=True, nullable=False)
     domain_name = db.Column(db.String(50), nullable=False)
@@ -30,22 +31,39 @@ class Question(db.Model):
     def __repr__(self):
         return f"{self.id}: {self.name}"
 
+
 class User(UserMixin, db.Model):
     username = db.Column(db.String(100), primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100), unique = True, nullable=False)
 
-class Candidate(User):
-    firstname = db.Column(db.String(100),unique = True, nullable=False)
+    def __repr__(self):
+        return f"{self.username}: {self.email}"
+    
+class Candidate(db.Model):
+    
+    username = db.Column(db.String(100), primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100), unique = True, nullable=False)
+    firstname = db.Column(db.String(100), nullable=False)
     middlename = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
     linkedin = db.Column(db.String(100))
     github = db.Column(db.String(100))
     resume = db.Column(db.BLOB)
 
-class Company(User):
+    def __repr__(self):
+        return f"{self.username}: {self.email}"
+    
+class Company(db.Model):
+    
+    username = db.Column(db.String(100), primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100), unique = True, nullable=False)
     companyname = db.Column(db.String(100),unique = True, nullable=False)
     website = db.Column(db.String(100),unique = True, nullable=False)
     desc = db.Column(db.String(10000), nullable= False)
     founder = db.Column(db.String(100))
     founded_on = db.Column(db.DateTime)
+
+    

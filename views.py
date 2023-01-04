@@ -3,7 +3,7 @@ import json
 from flask_login import login_required
 
 from app import app
-from flask import flash, render_template, Blueprint, request, session , redirect, url_for
+from flask import render_template,  request, redirect, url_for
 from models import Test, Question
 from personality_predict import predict_personality
 import random

@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+import datetime
+from flask import Blueprint, render_template, redirect, request, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from app import db 
@@ -23,7 +24,7 @@ def signup_candidate_post():
     firstname = request.form.get('firstname')
     middlename = request.form.get('middlename')
     lastname = request.form.get('lastname')
-    resume = request.form.get('Uploadresume')
+    resume = request.files.get('resume')
     linkedin = request.form.get('linkedin')
     github = request.form.get('github')
 
@@ -32,10 +33,11 @@ def signup_candidate_post():
     if user:
         flash('Username already exist.')
         return redirect(url_for('auth.login_candidate'))
-
-    new_user = Candidate(email=email, username=username, password=generate_password_hash(password, method='sha256'), firstname=firstname , middlename=middlename, lastname=lastname , resume=resume, linkedin=linkedin, github=github)
+    new_user = User(email=email, username=username, password=generate_password_hash(password, method='sha256'))
+    new_candidate = Candidate(email=email, username=username, password=generate_password_hash(password, method='sha256'), firstname=firstname , middlename=middlename, lastname=lastname , resume=resume, linkedin=linkedin, github=github)
 
     db.session.add(new_user)
+    db.session.add(new_candidate)
     db.session.commit()
 
     return redirect('app.personality_test')
@@ -49,21 +51,23 @@ def signup_company_post():
     email = request.form.get('email')
     username = request.form.get('username')
     password = request.form.get('password')
-    companyname = request.form.get('firstname')
+    companyname = request.form.get('companyname')
     website = request.form.get('website')
     desc = request.form.get('desc')
     founder = request.form.get('founder')
-    founded_on = request.form.get('founded_on')
-                               
+    founded_on = datetime.datetime.strptime(request.form.get('founded_on'), '%Y-%m-%d').date()
+
     user = User.query.filter_by(username=username).first()
 
     if user:
         flash('Username already exist.')
         return redirect(url_for('auth.login_candidate'))
 
-    new_user = Company(email=email, username=username, password=generate_password_hash(password, method='sha256'), companyname=companyname, website=website, desc=desc , founder=founder, founded_on=founded_on)
+    new_user = User(email=email, username=username, password=generate_password_hash(password, method='sha256'))
+    new_company = Company(email=email, username=username, password=generate_password_hash(password, method='sha256'), companyname=companyname, website=website, desc=desc , founder=founder, founded_on=founded_on)
     
     db.session.add(new_user)
+    db.session.add(new_company)
     db.session.commit()
     return redirect('auth.login_company')
 
@@ -85,7 +89,7 @@ def login_candidate_post():
 
     login_user(user, remember=remember)
 
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('app.candidateprofile'))
 
 
 @auth.route('/login-company')
@@ -106,4 +110,10 @@ def login_company_post():
 
     login_user(user, remember=remember)
 
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('app.companyprofile'))
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('app.home'))

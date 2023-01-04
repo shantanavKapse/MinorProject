@@ -12,14 +12,16 @@ db = SQLAlchemy(app)
 import views, models
 
 login_manager = LoginManager()
-login_manager.login_view = 'auth.signup'
+login_manager.login_view = 'auth.login_candidate'
+login_manager.login_view = 'auth.login_company'
 login_manager.init_app(app)
+
 
 from models import User
 
 @login_manager.user_loader
 def load_user(username):
-    return User.query.get(int(username))
+    return User.query.get(username)
 
 from auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
