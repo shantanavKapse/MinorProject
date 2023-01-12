@@ -12,7 +12,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/select_auth')
 def login_choice():
-    return render_template('signup.html')
+    return render_template('login.html')
 
 
 @auth.route('/signup-candidate', methods=['GET', 'POST'])
