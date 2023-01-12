@@ -13,11 +13,11 @@
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="notification is-danger">
-                {{ messages[0] }} Go to <a href="{{ url_for('auth.login_candidate') }}">login page</a>.
+                {{ messages[0] }} Go to <a href="{{ url_for('login_candidate') }}">login page</a>.
             </div>
         {% endif %}
         {% endwith %}
-        <form action="/signup-candidate" method="POST">
+        <form action="/signup-candidate" method="POST" enctype="multipart/form-data">
             <div class="field">
                 <div class="control">
                     <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
@@ -33,12 +33,6 @@
             <div class="field">
                 <div class="control">
                     <input class="input is-large" type="text" name="firstname" placeholder="First Name" autofocus="">
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="middlename" placeholder="Middle Name" autofocus="">
                 </div>
             </div>
 

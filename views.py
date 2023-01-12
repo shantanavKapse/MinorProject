@@ -1,18 +1,26 @@
 import json
 
-from flask_login import login_required
+from flask_login import login_required, current_user
 
+import models
 from app import app
 from flask import render_template,  request, redirect, url_for
-from models import Test, Question
+from models import Test, Question, Company, Candidate
 from personality_predict import predict_personality
 import random
 
 
 @app.route('/')
 def home():
+    if current_user.__class__ == models.Company:
+        user_class = 'company'
+    elif current_user.__class__ == models.Candidate:
+        user_class = 'candidate'
+    else:
+        user_class = 'anonymous'
+    print(user_class)
     test = Test.query.order_by(Test.creation_date.desc()).limit(5).all()
-    return render_template('home.html' , tests = test)
+    return render_template('home.html', tests=test, user_class=user_class)
 
 
 @app.route('/tests')

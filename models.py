@@ -7,7 +7,7 @@ class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     company_name = db.Column(db.String(255), nullable=False)
-    creation_date = db.Column(db.DateTime , nullable=False, default=datetime.utcnow())
+    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     description = db.Column(db.Text())
     job_role = db.Column(db.String(255), nullable=False)
     openness_criteria = db.Column(db.Float)
@@ -31,39 +31,44 @@ class Question(db.Model):
     def __repr__(self):
         return f"{self.id}: {self.name}"
 
+# class User(db.Model, UserMixin):
+#     username = db.Column(db.String(100), primary_key=True)
+#     email = db.Column(db.String(100), unique=True)
+#     password = db.Column(db.String(100), unique = True, nullable=False)
+#
+#     def __repr__(self):
+#         return f"{self.username}: {self.email}"
 
-class User(UserMixin, db.Model):
-    username = db.Column(db.String(100), primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100), unique = True, nullable=False)
 
-    def __repr__(self):
-        return f"{self.username}: {self.email}"
-    
-class Candidate(db.Model):
-    
+class Candidate(db.Model, UserMixin):
     username = db.Column(db.String(100), primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100), unique = True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), unique=True, nullable=False)
     firstname = db.Column(db.String(100), nullable=False)
-    middlename = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
     linkedin = db.Column(db.String(100))
     github = db.Column(db.String(100))
-    resume = db.Column(db.BLOB)
+    resume = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return f"{self.username}: {self.email}"
-    
-class Company(db.Model):
-    
-    username = db.Column(db.String(100), primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100), unique = True, nullable=False)
-    companyname = db.Column(db.String(100),unique = True, nullable=False)
-    website = db.Column(db.String(100),unique = True, nullable=False)
-    desc = db.Column(db.String(10000), nullable= False)
-    founder = db.Column(db.String(100))
-    founded_on = db.Column(db.DateTime)
+        return f"Candidate: {self.username}"
 
-    
+    def get_id(self):
+        return self.username
+
+
+class Company(db.Model, UserMixin):
+    username = db.Column(db.String(100), primary_key=True)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), unique=True, nullable=False)
+    company_name = db.Column(db.String(100), unique=True, nullable=False)
+    website = db.Column(db.String(100), unique=True, nullable=False)
+    desc = db.Column(db.String(10000), nullable=False)
+    founder = db.Column(db.String(100), nullable=False)
+    founded_on = db.Column(db.DateTime, nullable=False)
+
+    def __repr__(self):
+        return f"Company: {self.companyname}"
+
+    def get_id(self):
+        return self.username
