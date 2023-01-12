@@ -8,9 +8,9 @@ import views
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/signup')
+@auth.route('/login')
 def signup():
-    return render_template('signup.html')
+    return render_template('login.html')
 
 @auth.route('/signup-candidate')
 def signup_candidate():
