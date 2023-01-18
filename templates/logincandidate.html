@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='' )}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/loginCandidate.css' )}}">
 {% endblock %}
 {% block title %}
     Home | Login
@@ -8,51 +8,59 @@
 
 {% block body %}
 
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" action="/login-candidate">
-    
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="username" placeholder="User Name" autofocus="">
+<div class="main align-middle">
+    <div class="container" style="width: fit-content;">
+        <div class="row d-flex justify-content-between">
+            <div class="col-lg-6 col-md-6 col-sm-5 d-flex align-items-center left">
+                <div>
+                    <div id="login-head">Login as <span style="color: #d63384;">Candidate</span></div>
+                    <div class="login-img">
+                        <img class="img-fluid" src="../static/img/login.png">
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 d-flex align-items-center banner">
+                <div class="right-form d-flex justify-content-center">
+                    <div id="txt-wel">Welcome back</div>
+                    <form method="POST" action="/login-candidate">
+                        <div class="form">
+                            <div>
+                                <input class="input is-large" type="text" name="username"
+                                    placeholder="Enter Username" style="margin-bottom: 0.7rem;">
+                                <div class="password d-flex">
+                                    <input id="passwrd" class="input is-large" type="password" name="password"
+                                        placeholder="Password ">
+                                    <i class="eye-icon fa fa-eye" onclick="eyeToggle()"
+                                        style="margin-right: -25px; margin-left: -25px; margin-top: 11px;"></i>
+                                </div>
+                                <label style="float: left; margin-top: 0.4rem;">
+                                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                                </label>
 
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder=" Password ">
+                            </div>
+                            <div>
+                                <button class="login rounded-2">Login</button>
+                                {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    <div class="error-msg">
+                                        {{ messages[0] }}
+                                    </div>
+                                {% endif %}
+                                {% endwith %}
+                            </div>
+                            <h6 style="margin-top: 0.8rem;">Not a member?<a href="/signup-candidate">Sign up</a>
+                            </h6>
+                            <h6><a href="#">Forgot Password?</a></h6>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Remember me
-                </label>
-            </div>
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
-            <a href="#">Forgot Password?</a>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <h3> new user, signup here. </h3>
-    <a href="/signup-candidate">
-        <button>
-            Signup as Candidate
-        </button>
-    </a>
 </div>
 
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static', filename='js/loginCandidate.js') }}"></script>
 {% endblock %}

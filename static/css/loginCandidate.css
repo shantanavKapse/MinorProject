@@ -1,0 +1,101 @@
+
+  .main{
+    min-height: 100vh; 
+    display: flex;
+    align-items: center;
+  }
+  .login-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5vw;
+  }
+.right-form{
+  height: 40vh;
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.3rem;
+}
+.login{
+  width:100%;
+  color: white;
+  background-color: #24a0ed;
+  padding: 0.4rem 0;
+}
+.input{
+  width: 100%;
+  background-color: #545454;
+  padding: 0.4rem 0.6rem;
+}
+input::placeholder { 
+  color: white;
+  opacity: 1;
+}
+input{
+  color: white;
+}
+#login-head{
+  font-family: Arial, sans-serif ;
+  font-size: 2.7rem;
+  font-weight: bolder;
+}
+.form{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.6rem;
+}
+#txt-wel{
+  font-size: 1.7rem; 
+  font-family: Arial, Helvetica, sans-serif; 
+  font-weight: bold;
+}
+.error-msg{
+  color: rgb(247, 136, 136);
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+@media only screen and (max-width: 992px){
+  #login-head{
+    font-size: 2.2rem;
+  }
+  #txt-wel{
+    font-size: 1.5rem;
+  }
+  .form{
+    row-gap: 1.9vw;
+  }
+  .right-form{
+    row-gap: 2.2vw;
+  }
+}
+@media only screen and (max-width: 768px){
+  #login-head{
+    font-size: 1.6rem;
+  }
+  #txt-wel{
+    font-size: 1.3rem;
+  }
+}
+@media only screen and (max-width: 576px){
+  .login-img{
+    display: none;
+  }
+  #login-head{
+    margin-bottom: 4rem;
+    font-size: 2rem;
+  }
+  #txt-wel{
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .form{
+    row-gap: 1.5rem;
+  }
+  .left{
+    justify-content: center;
+  }
+}

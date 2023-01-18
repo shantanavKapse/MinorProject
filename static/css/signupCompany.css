@@ -1,0 +1,106 @@
+body{
+    background-color: #121212;
+    color: white;
+}
+.page2{
+    display: none;
+}
+.page3{
+    display: none;
+}
+.img-right{
+    max-width:100%;
+    max-height:100%;
+}
+#next{
+    float: right;
+}
+
+.inp{
+    width: 100%;
+    background-color: #545454;
+    padding: 0.3rem 0.7rem;
+}
+input::placeholder { 
+    color: white;
+    opacity: 1;
+}
+input{
+    color: white;
+  }
+textarea{
+    color: white;
+}
+textarea::placeholder{
+    color: white;
+}
+  .cont{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+.cont input , .cont textarea , .cont .pro-photo{
+    border-radius: 0.5rem;
+}
+.form-signup{
+  width: 50%;
+}
+.input-signup1 , .input-signup2{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.8rem;
+}
+.input-signup3{
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.7rem;
+}
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+input[type=date]:invalid::-webkit-datetime-edit {
+    text-transform: uppercase;
+}
+#checkbx{
+    margin-right: 0.3rem;
+}
+.last-button{
+    margin-top: 2rem;
+  }
+  .pro-photo{
+    background-color: #545454;
+    margin-top: 0.5rem;
+  }
+  .camera-icon{
+    color: white;
+    margin-right: 0.5rem;
+  }
+  #pro-photo{
+    display: none;
+  }
+  #pro-photo::after{
+    display: block;
+  }
+  .error-msg{
+    color: rgb(247, 136, 136);
+    margin-top: 1rem;
+    padding: 0 1rem;
+  }
+  @media only screen and (max-width: 992px){
+    .form-signup{
+      width: auto;
+    }
+  }
+  @media only screen and (max-width: 576px){
+      .img-right{
+          display: none;
+      }
+      .page1 .cont{
+          width: 100%;
+          display: flex;
+          justify-content: center;
+      }
+      .create-acc{
+          text-align: center;
+      }
+  }

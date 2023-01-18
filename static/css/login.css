@@ -1,7 +1,3 @@
-body {
-    background-color: #010101;
-    color: white;
-  }
 .main{
   min-height: 85vh; 
   display: flex;
