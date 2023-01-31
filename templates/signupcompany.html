@@ -11,14 +11,8 @@
     <div class="container" style="margin: auto;">
         <div class="row d-flex align-items-strech">
             <div class="col-lg-7 col-md-6 col-sm-6 d-flex align-items-center justify-content-center">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="notification is-danger">
-                        {{ messages[0] }} Go to <a href="{{ url_for('auth.login_company') }}">login page</a>.
-                    </div>
-                {% endif %}
-                {% endwith %}
-                    <form action="/signup-company" method="post">
+                
+                    <form action="/signup-company" method="post" enctype="multipart/form-data">
                         <div class="cont">
                             <div class="create-acc">
                                 <h3>Create your account</h3>
@@ -26,10 +20,10 @@
                             </div>
                             <div class="page1">
                                 <div class="input-signup1">
-                                    <input class="inp" type="text" placeholder="Enter company name" name="email" required>
-                                    <input class="inp" type="text" placeholder="Enter founder name" name="username" required>
-                                    <input class="inp"  type="date" name="date" required>
-                                    <textarea class="inp" rows="4" cols="25" placeholder="Enter company description" name="comment" ></textarea>
+                                    <input class="inp" type="text" placeholder="Enter company name" name="company_name" required>
+                                    <input class="inp" type="text" placeholder="Enter founder name" name="founder" required>
+                                    <input class="inp"  type="date" name="founded_on" placeholder="founded on" required>
+                                    <textarea class="inp" rows="4" cols="25" placeholder="Enter company description" name="desc" ></textarea>
                                 </div>
                                 <div class="last-button">
                                     <a href="/login-candidate" style="text-decoration: none;">Sign in instead</a>
@@ -41,7 +35,7 @@
                                 <div class="input-signup2">
                                     <input class="inp" type="text" placeholder="Enter email address" name="email" required>
                                     <input class="inp" type="text" placeholder="Create username" name="username" required>
-                                    <input class="inp" id="passwd" type="password" placeholder="Create Password" name="psw" required>
+                                    <input class="inp" id="passwd" type="password" placeholder="Create Password" name="password" required>
                                     <label>
                                         <input id="checkbx" type="checkbox" name="showPwd" onclick="showpasswd()">Show password
                                     </label>
@@ -56,17 +50,17 @@
                             <div class="page3">
                                 <div class="input-signup3">
                                     
-                                    <input class="inp" type="text" placeholder="Company website link" name="url">
+                                    <input class="inp" type="text" placeholder="Company website link" name="website">
                                     <div class="pro-photo">
                                         <label for="pro-photo" style="padding: 0.5rem 1rem;">
                                             <i class="fa fa-camera camera-icon"></i>Upload profile picture
                                         </label>
-                                        <input accept="image/*" type="file" id="pro-photo" onchange="fileName()">
+                                        <input accept="image/*" type="file" enctype="multipart/form-data" id="pro-photo" onchange="fileName()" name="company_logo">
                                     </div>
                                     {% with messages = get_flashed_messages() %}
                                         {% if messages %}
                                             <div class="error-msg">
-                                                {{ messages[0] }} Go to <a href="{{ url_for('login_candidate') }}">login page</a>.
+                                                {{ messages[0] }} Go to <a href="{{ url_for('login_company') }}">login page</a>.
                                             </div>
                                     {% endif %}
                                     {% endwith %}

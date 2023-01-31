@@ -2,12 +2,20 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
+UPLOAD_RESUME = 'uploads\Resumes/'
+UPLOAD_PROFILE = 'uploads\ProfilePic/'
+ALLOWED_EXTENSIONS = {'pdf','doc','png','jpg', 'jpeg'}
+
+
 # Database configuration code.
 app = Flask(__name__)
 app.secret_key = b'Nan36Nut37Sha50Van65'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Nominator.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+app.config['UPLOAD_RESUME']= UPLOAD_RESUME
+app.config['UPLOAD_PROFILE'] = UPLOAD_PROFILE
+
 
 
 login_manager = LoginManager(app=app)

@@ -2,9 +2,10 @@ import datetime
 from flask import Blueprint, render_template, redirect, request, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from app import db 
+from app import * 
 from models import Candidate, Company
 import views
+import os
 from sqlalchemy.exc import IntegrityError
 
 auth = Blueprint('auth', __name__)
@@ -23,27 +24,30 @@ def signup_candidate():
         password = request.form.get('password')
         firstname = request.form.get('firstname')
         lastname = request.form.get('lastname')
-        resume = request.files.get('resume')
+        resume = request.files['resume']
         linkedin = request.form.get('linkedin')
         github = request.form.get('github')
+        gender = request.form.get('gender')
+        profile_pic = request.files['profile_pic']
         if resume:
-            resume.save(resume.filename)
-            has_resume = True
-        else:
-            has_resume = False
-        user = Candidate.query.filter_by(username=username).first()
+            resume.save(os.path.join(app.config['UPLOAD_RESUME'], resume.filename))
+        if profile_pic:
+            profile_pic.save(os.path.join(app.config['UPLOAD_PROFILE'], profile_pic.filename))
+        
 
+        user = Candidate.query.filter_by(username=username).first()
+        
         if user:
             flash('Username already exist.')
-            return redirect(url_for('login_candidate'))
+            return redirect(url_for('auth.login_candidate'))
         try:
             user = Candidate(email=email, username=username, password=generate_password_hash(password, method='sha256'),
-                             firstname=firstname, lastname=lastname, resume=has_resume, linkedin=linkedin, github=github)
+                             firstname=firstname, lastname=lastname, resume=resume.read(), linkedin=linkedin, github=github , gender=gender, profile_pic=profile_pic.read())
             db.session.add(user)
             db.session.commit()
             login_user(user)
             flash(f"Successfully registered candidate, {firstname}")
-            return redirect(url_for('home'))
+            return redirect(url_for('auth.login_candidate'))
         except IntegrityError:
             flash('Given Field(s) should satisfy all the requirements. Field(s) not unique.', 'error')
 
@@ -76,23 +80,23 @@ def signup_company():
         password = request.form.get('password')
         company_name = request.form.get('company_name')
         website = request.form.get('website')
-        description = request.form.get('desc')
+        desc = request.form.get('desc')
         founder = request.form.get('founder')
         founded_on = datetime.datetime.strptime(request.form.get('founded_on'), '%Y-%m-%d').date()
+        company_logo = request.files['company_logo']
         try:
             user = Company(email=email, username=username, password=generate_password_hash(password, method='sha256'),
-                           company_name=company_name, website=website, desc=description, founded_on=founded_on,
-                           founder=founder)
+            company_name=company_name, website=website, desc=desc, founded_on=founded_on, founder=founder, company_logo=company_logo.read())
             db.session.add(user)
             db.session.commit()
             login_user(user)
             flash(f"Successfully registered {company_name}")
-            return redirect(url_for('home'))
+            return redirect(url_for('auth.login_company'))
         except IntegrityError as e:
             print("Error in company signup.")
             print(e)
             flash('Given Field(s) should satisfy all the requirements. Field(s) not unique.', 'error')
-
+        
     return render_template('signupcompany.html')
 
 
