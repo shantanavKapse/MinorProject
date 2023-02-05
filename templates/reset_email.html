@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Reset Password{% endblock %}</h1>
+{% endblock %}
+
+{% block body %}
+
+<p>
+    To reset your password
+    <a href="{{ url_for('auth.reset_verified', user = user , token=token, _external=True) }}">
+        click here
+    </a>.
+</p>
+
+{% endblock %}

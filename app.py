@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_jwt_extended import JWTManager
+from flask_mail import Mail
+
 
 UPLOAD_RESUME = 'uploads\Resumes/'
 UPLOAD_PROFILE = 'uploads\ProfilePic/'
@@ -15,6 +18,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.config['UPLOAD_RESUME']= UPLOAD_RESUME
 app.config['UPLOAD_PROFILE'] = UPLOAD_PROFILE
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USERNAME'] = "shindenutan015@gmail.com"
+app.config['MAIL_PASSWORD'] = "lfkcmcdgxgagafxs"
+app.config['TESTING'] = False
+mail = Mail(app)
 
 
 

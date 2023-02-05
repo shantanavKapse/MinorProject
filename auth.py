@@ -1,15 +1,18 @@
 import datetime
 from flask import Blueprint, render_template, redirect, request, url_for, flash
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash 
 from flask_login import login_user, logout_user, login_required, current_user
 from app import * 
 from models import Candidate, Company
 import views
 import os
 from sqlalchemy.exc import IntegrityError
+from flaskmail import send_email
 
 auth = Blueprint('auth', __name__)
 
+candidate  = Candidate()
+company = Company()
 
 @auth.route('/select_auth')
 def login_choice():
@@ -123,3 +126,43 @@ def login_company():
 def logout():
     logout_user()
     return redirect(url_for('auth.login_choice'))
+
+@auth.route('/password_reset', methods=['GET', 'POST'])
+def reset():
+
+    if request.method == 'GET':
+        return render_template('reset.html')
+
+    if request.method == 'POST':
+
+        email = request.form.get('email')
+        
+        user = Candidate.verify_email(email)
+        
+        if user:
+            send_email(user)
+
+        user = Company.verify_email(email)
+        if user:
+            send_email(user)
+
+        return redirect(url_for('auth.login_choice'))
+
+@auth.route('/password_reset_verified/<token>', methods=['GET','POST'])
+def reset_verified(token):
+    if request.method == 'POST':
+        user = candidate.verify_reset_token(token=token)
+        username = request.form.get('username')
+        password = request.form.get('password')
+        if password:
+            user = Candidate.query.filter_by(username=username).first()
+            user.set_password(password, commit=True)
+            return redirect(url_for('auth.login_choice'))
+    
+        user = company.verify_reset_token(token=token)
+        password = request.form.get('password')
+        if password:
+            user.set_password(password, commit=True)
+            return redirect(url_for('auth.login_choice'))
+
+    return render_template('reset_verified.html')

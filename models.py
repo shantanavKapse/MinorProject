@@ -1,7 +1,11 @@
+from itsdangerous import TimedSerializer
 from app import db
 from datetime import datetime
+import time
 from flask_login import UserMixin
 import enum 
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import current_app
 
 
 class Test(db.Model):
@@ -62,6 +66,30 @@ class Candidate(db.Model, UserMixin):
 
     def get_id(self):
         return self.username
+    
+    def set_password(self, password, commit=False):
+        self.password = generate_password_hash(password)
+
+        if commit:
+            db.session.commit()
+
+    def verify_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def get_reset_token(self):
+        s = TimedSerializer(current_app.secret_key, 'confirmation')
+        return s.dumps(self.username)
+    
+    def verify_reset_token(self, token, max_age=3600):
+        s = TimedSerializer(current_app.secret_key, 'confirmation')
+        return s.loads(token, max_age=max_age) == self.username   
+
+    @staticmethod
+    def verify_email(email):
+
+        user = Candidate.query.filter_by(email=email).first()
+
+        return user
 
 
 class Company(db.Model, UserMixin):
@@ -80,3 +108,27 @@ class Company(db.Model, UserMixin):
 
     def get_id(self):
         return self.username
+    
+    def set_password(self, password, commit=False):
+        self.password = generate_password_hash(password)
+
+        if commit:
+            db.session.commit()
+
+    def verify_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def get_reset_token(self):
+        s = TimedSerializer(current_app.secret_key, 'confirmation')
+        return s.dumps(self.username)
+    
+    def verify_reset_token(self, token, max_age=3600):
+        s = TimedSerializer(current_app.secret_key, 'confirmation')
+        return s.loads(token, max_age=max_age) == self.username    
+    
+    @staticmethod
+    def verify_email(email):
+
+        user = Company.query.filter_by(email=email).first()
+
+        return user
