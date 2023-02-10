@@ -1,7 +1,8 @@
-body{
+body {
     background-color: #121212;
     color: white;
 }
+
 #logo {
     border-radius: 15px;
 }
@@ -37,7 +38,7 @@ body{
     transform-origin: bottom left;
 }
 
-.active:after{
+.active:after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
@@ -96,4 +97,17 @@ button {
 .navbar-nav {
     align-items: center;
     margin: 1% 0;
+}
+
+.profile-pic {
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.profile-pic img {
+    width: 100%;
 }

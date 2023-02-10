@@ -45,7 +45,7 @@ def signup_candidate():
             return redirect(url_for('auth.login_candidate'))
         try:
             user = Candidate(email=email, username=username, password=generate_password_hash(password, method='sha256'),
-                             firstname=firstname, lastname=lastname, resume=resume.read(), linkedin=linkedin, github=github , gender=gender, profile_pic=profile_pic.read())
+                             firstname=firstname, lastname=lastname, resume=resume.filename, linkedin=linkedin, github=github , gender=gender, profile_pic=profile_pic.filename)
             db.session.add(user)
             db.session.commit()
             login_user(user)
@@ -87,9 +87,12 @@ def signup_company():
         founder = request.form.get('founder')
         founded_on = datetime.datetime.strptime(request.form.get('founded_on'), '%Y-%m-%d').date()
         company_logo = request.files['company_logo']
+        if company_logo:
+            company_logo.save(os.path.join(app.config['UPLOAD_PROFILE'], company_logo.filename))
+
         try:
             user = Company(email=email, username=username, password=generate_password_hash(password, method='sha256'),
-            company_name=company_name, website=website, desc=desc, founded_on=founded_on, founder=founder, company_logo=company_logo.read())
+            company_name=company_name, website=website, desc=desc, founded_on=founded_on, founder=founder, company_logo=company_logo.filename)
             db.session.add(user)
             db.session.commit()
             login_user(user)
@@ -162,6 +165,7 @@ def reset_verified(token):
         user = company.verify_reset_token(token=token)
         password = request.form.get('password')
         if password:
+            user = Company.query.filter_by(username=username).first()
             user.set_password(password, commit=True)
             return redirect(url_for('auth.login_choice'))
 

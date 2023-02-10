@@ -57,9 +57,9 @@ class Candidate(db.Model, UserMixin):
     lastname = db.Column(db.String(100))
     linkedin = db.Column(db.String(100))
     github = db.Column(db.String(100))
-    resume = db.Column(db.LargeBinary, default=False)
+    resume = db.Column(db.String(200), default=False)
     gender = db.Column(db.Enum(CandidateGender))
-    profile_pic = db.Column(db.LargeBinary , nullable = True)
+    profile_pic = db.Column(db.String(200) , nullable = True , default = 'default_pic.jpg')
 
     def __repr__(self):
         return f"Candidate: {self.username}"
@@ -101,7 +101,7 @@ class Company(db.Model, UserMixin):
     desc = db.Column(db.String(10000), nullable=False)
     founder = db.Column(db.String(100), nullable=False)
     founded_on = db.Column(db.DateTime, nullable=False)
-    company_logo = db.Column(db.BLOB , nullable = False)
+    company_logo = db.Column(db.String(200) , nullable = False)
 
     def __repr__(self):
         return f"Company: {self.username}"

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/CandidateProfile.css')}}">
+{% endblock %}
+{% block title %}
+  Home | Profile
+{% endblock %}
+
+{% block body %}
+
+
+<div>
+    <div class="profile-pic">
+    <img src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture" >
+</div> 
+    
+    <p> User: {{candidate.username}}<br>
+     Email : {{candidate.email}} <br>
+        First Name : {{candidate.firstname}}<br>
+        Last Name : {{candidate.lastname}}<br>
+        Gender : {{candidate.gender.value}}<br>    
+        LinkedIn URL : {{candidate.linkedin}}<br>
+        Github URL : {{candidate.github}}<br>
+        Predicted personality : <br>
+        Skills : <br>
+    </p>
+</div>
+
+<h5>take the personality test</h5><br>
+<a href="{{ url_for('personality_test') }}" class="">Take Test</a>
+<a herf="#" class="">Reset Password</a><br>
+<a href="{{ url_for('auth.logout') }}" class="">Logout</a>
+<a href="{{ url_for('editprofile', username=candidate.username) }}" class="">Edit Profile</a>
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

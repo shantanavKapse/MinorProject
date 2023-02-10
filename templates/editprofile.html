@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    
+    .profile-pic{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        float: left;
+        margin-top: 15px;
+        margin-left: 15px;
+
+    }   
+ 
+    .profile-pic img {
+        width: 100%;
+    }
+</style>
+    <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+{% endblock %}
+{% block title %}
+  Home | Edit-Profile
+{% endblock %}
+
+{% block body %}
+
+<div class="profile-pic">
+    <img src="/uploads/ProfilePic/{{ candidate.profile_pic }}" alt="Profile Picture" >
+</div>
+<form id="edit-profile-form" method ="POST" enctype = "multipart/form-data">
+    <div class="">
+        Edit Profile <br>
+        <input class="" type="hidden" value="{{candidate.username}}" name="oldusername" autofocus="" ><br>
+        username
+        <input class="" type="text" value="{{candidate.username}}" name ="username" autofocus="" ><br>
+        Email
+        <input class="" type="text" value="{{candidate.email}}" name="email" autofocus="" ><br>
+        Firstname
+        <input class="" type="text" value="{{candidate.firstname}}" name="firstname" autofocus="" ><br>
+        Lastname
+        <input class="" type="text" value="{{candidate.lastname}}" name="lastname" autofocus="" ><br>
+        Linkedin profile url
+        <input class="" type="url" value="{{candidate.linkedin}}" name="linkedin" autofocus="" ><br>
+        Github profile url
+        <input class="" type="url" value="{{candidate.github}}" name="github" autofocus="" ><br>
+        skills    
+        <input class="" type="text" value="skills" name="skills" autofocus="" ><br>
+
+        Change Profile
+        <input accept="image/*" type="file" name="profile_pic"><br>
+
+        Resume
+        <input type="file" name="resume">
+        
+       <a href="#">
+        <input type="submit"/>
+       </a>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="error-msg">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}  
+       
+
+</form>    
+    
+</div>
+{% endblock %}
+
+
+
+

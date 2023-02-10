@@ -25,17 +25,31 @@
 <!--                </a>-->
                 {% if user_class == 'company' %}
                     Hello Team {{current_user.company_name}}!
+                    {% if company_logo %}
+                    <div class="profile-pic">
+                        <a href=" {{url_for('Company_profile' , username = current_user.username) }}" class="navbar-item" >
+                            <img src="/uploads/ProfilePic/{{ company_logo }}" alt="Profile Picture" >
+                        </a>
+                    </div>
+                    {% endif %}
                 {% elif user_class == 'candidate' %}
                     Hello {{current_user.username}}
+                    {% if profile_pic %}
+                    <div class="profile-pic">
+                        <a href=" {{url_for('Candidate_profile' , username = current_user.username) }}" class="navbar-item" >
+                            <img src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture" >
+                        </a>
+                    </div>
+                    {% endif %}
                 {% endif %}
                 {% endif %}          
                 {% if not current_user.is_authenticated %}
                 <a href="{{ url_for('auth.login_choice') }}" id="clickid5" class="nav-item nav-link">Login</a>
                 {% endif %}
                 {% if current_user.is_authenticated %}
-                <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                <!--<a href="{{ url_for('auth.logout') }}" class="navbar-item">
                     Logout
-                </a>
+                </a>-->
                 {% endif %}
             </div>
         </div>

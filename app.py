@@ -1,8 +1,8 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_jwt_extended import JWTManager
 from flask_mail import Mail
+import os
 
 
 UPLOAD_RESUME = 'uploads\Resumes/'
@@ -12,10 +12,12 @@ ALLOWED_EXTENSIONS = {'pdf','doc','png','jpg', 'jpeg'}
 
 # Database configuration code.
 app = Flask(__name__)
+UPLOAD_FOLDER = os.path.join(app.root_path, 'uploads')
 app.secret_key = b'Nan36Nut37Sha50Van65'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Nominator.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
 app.config['UPLOAD_RESUME']= UPLOAD_RESUME
 app.config['UPLOAD_PROFILE'] = UPLOAD_PROFILE
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -30,8 +32,9 @@ mail = Mail(app)
 
 
 login_manager = LoginManager(app=app)
-login_manager.login_view = 'auth.login_candidate'
-login_manager.login_view = 'auth.login_company'
+login_manager.login_view = 'auth.login_choice'
+#login_manager.login_view = 'auth.login_candidate'
+#login_manager.login_view = 'auth.login_company'
 login_manager.init_app(app)
 
 from models import Candidate, Company
@@ -43,6 +46,16 @@ def load_user(username):
     if not user:
         user = Candidate.query.filter_by(username=username).first()
     return user
+
+
+
+@app.route('/uploads/<path:filename>')
+def uploads(filename):
+    return send_from_directory(
+        app.config['UPLOAD_FOLDER'],
+        filename
+    )
+
 
 
 from auth import auth as auth_blueprint
