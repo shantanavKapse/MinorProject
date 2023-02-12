@@ -60,6 +60,8 @@ class Candidate(db.Model, UserMixin):
     resume = db.Column(db.String(200), default=False)
     gender = db.Column(db.Enum(CandidateGender))
     profile_pic = db.Column(db.String(200) , nullable = True , default = 'default_pic.jpg')
+    skills = db.relationship('Skill',secondary="candidate_skills", backref='candidate', lazy=True)
+
 
     def __repr__(self):
         return f"Candidate: {self.username}"
@@ -132,3 +134,17 @@ class Company(db.Model, UserMixin):
         user = Company.query.filter_by(email=email).first()
 
         return user
+
+class SkillRange(enum.Enum):
+    Beginner  = 'Beginner'
+    Intermediate = 'Intermediate'
+    Advanced = 'Advanced'
+
+class Skill(db.Model):
+    skill_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+
+class Candidate_skills(db.Model):
+    candidate_username = db.Column(db.String(200), db.ForeignKey("candidate.username"), primary_key=True)
+    skill_id = db.Column(db.Integer, db.ForeignKey("skill.skill_id"), primary_key=True)
+    level = db.Column(db.Enum(SkillRange))

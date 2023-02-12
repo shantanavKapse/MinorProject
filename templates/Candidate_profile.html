@@ -22,11 +22,14 @@
         LinkedIn URL : {{candidate.linkedin}}<br>
         Github URL : {{candidate.github}}<br>
         Predicted personality : <br>
-        Skills : <br>
+        Skills : 
+        {% for skill in skills %}
+            <li> {{ skill.name }} ({{ skill.level }})</li>
+        {% endfor %}
     </p>
 </div>
 
-<h5>take the personality test</h5><br>
+<h5>take the personality test</h5>
 <a href="{{ url_for('personality_test') }}" class="">Take Test</a>
 <a herf="#" class="">Reset Password</a><br>
 <a href="{{ url_for('auth.logout') }}" class="">Logout</a>

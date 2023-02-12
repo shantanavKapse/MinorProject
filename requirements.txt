@@ -3,3 +3,5 @@ numpy==1.21.4
 joblib==1.2.0
 Flask-SQLAlchemy==2.5.1
 scikit-learn==1.0.2
+flask-mail
+flask-migrate==4.0.4

@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 import models
 from app import app , db
 from flask import render_template,  request, redirect, send_from_directory, url_for , flash
-from models import Test, Question, Company, Candidate
+from models import Test, Question, Company, Candidate , Candidate_skills , Skill
 from personality_predict import predict_personality
 import random
 
@@ -101,19 +101,23 @@ def company():
 def Candidate_profile(username):
     if request.method=='GET':
         candidate = Candidate.query.filter_by(username=username).first()
-    
+        skills = []
+        for skill in candidate.skills:
+            print(skills)
+            l = Candidate_skills.query.filter_by(candidate_username=candidate.username, skill_id= skill.skill_id).first()
+            skills.append({"name": skill.name, "level": l.level.value})
         if candidate:
             if candidate.profile_pic:
                 profile_pic = (candidate.profile_pic)
                 
             else:
                 profile_pic = None
-            return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic)
+            return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic , skills=skills)
         else:
             return 'Candidate not found' , 404
     
         
-    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic)
+    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic, skills=skills)
 
 
 @app.route('/Company-Profile/<username>', methods =['GET'])
