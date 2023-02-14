@@ -1,94 +1,114 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/signupCandidate.css' )}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/signupCandidate.css' )}}">
 {% endblock %}
 {% block title %}
-    Home | signup
+Home | signup
 {% endblock %}
 
 {% block body %}
-<div class="main d-flex align-items-center justify-content-center" style="height: 80vh;">
+<div class="main d-flex align-items-center justify-content-center" style="height: 90vh;">
     <div class="container" style="margin: auto;">
         <div class="row d-flex align-items-strech">
             <div class="col-lg-7 col-md-6 col-sm-6 d-flex align-items-center justify-content-center">
-                    <form action="/signup-candidate" method="post" enctype="multipart/form-data">
-                        <div class="cont">
-                            <div class="create-acc">
-                                <h3>Create your account</h3>
-                                <h3 style="color: #d63384;">as Candidate</h3>
+                <form action="/signup-candidate" method="post" enctype="multipart/form-data">
+                    <div class="cont">
+                        <div class="create-acc">
+                            <h3>Create your account</h3>
+                            <h3 style="color: #d63384;">as Candidate</h3>
+                        </div>
+                        <div class="page1">
+                            <div class="input-signup1">
+                                <input class="inp" type="text" placeholder="Enter email address" name="email"
+                                    autofocus="" required>
+                                <input class="inp" type="text" placeholder="Create username" name="username"
+                                    autofocus="" required>
+                                <input class="inp" id="passwd" type="password" placeholder="Create Password"
+                                    name="password" autofocus="" required>
+                                <button id="pass-req-button" >Password requirements</button>
+                                <div id="message" class="passwod-req">
+                                    <p>Password must contain the following:</p>
+                                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                    <p id="number" class="invalid">A <b>number</b></p>
+                                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                                </div>
+                                <label>
+                                    <input id="checkbx" type="checkbox" name="showPwd" onclick="showpasswd()">Show
+                                    password
+                                </label>
+                                <input class="inp" type="password" placeholder="Confirm Password" name="psw-repeat"
+                                    autofocus="" required>
                             </div>
-                            <div class="page1">
-                                <div class="input-signup1">
-                                    <input class="inp" type="text" placeholder="Enter email address" name="email" autofocus="" required>
-                                    <input class="inp" type="text" placeholder="Create username" name="username" autofocus="" required>
-                                    <input class="inp" id="passwd" type="password" placeholder="Create Password" name="password" autofocus="" required>
-                                    <label>
-                                        <input id="checkbx" type="checkbox" name="showPwd" onclick="showpasswd()">Show password
-                                    </label>
-                                    <input class="inp" type="password" placeholder="Confirm Password" name="psw-repeat" autofocus="" required>
-                                </div>
-                                <div class="last-button">
-                                    <a href="/login-candidate" style="text-decoration: none;">Sign in instead</a>
-                                    <button type="button" id="next" class="btn btn-primary" onclick="chngPage1()">Next</button>
-                                </div>    
-                            </div>
-                            
-                            <div class="page2">
-                                <div class="input-signup2">
-            
-                                        <input class="inp" type="text" placeholder="First name" name="firstname" required>
-                                        <input class="inp" type="text" placeholder="Last name" name="lastname" required>
-
-                                    <div>
-                                        <h6 style="margin-bottom: 1rem;">Select gender</h6>
-                                        <div class="button-radio d-flex">
-                                            <input type="radio" id="female" name="gender" value="Female">
-                                            <label class="bton" for="female" style="margin-right: 0.5rem;">Female</label>
-                                            <input type="radio" id="male" name="gender" value = "Male">
-                                            <label class="bton" for="male"  style="margin-right: 0.5rem;">Male</label>
-                                            <input type="radio" id="other" name="gender" value ="Other">
-                                            <label class="bton" for="other"  style ="margin-right: 0.5rem;">Other</label>
-                                        </div>
-                                    </div>
-                                    <div class="pro-photo">
-                                        <label for="pro-photo" style="padding: 0.5rem 1rem;">
-                                            <i class="fa fa-camera camera-icon"></i>Upload profile picture
-                                        </label>
-                                         <input accept="image/*" type="file" enctype="multipart/form-data" id="pro-photo" name = "profile_pic">
-                                    </div>
-                                </div>
-                                <div class="last-button">
-                                    <button type="button" id="back1" class="btn btn-secondary" onclick="backPage2()">Back</button>
-                                    <button type="button" id="next" class="btn btn-primary" onclick="chngPage2()">Next</button>
-                                </div>
-                            </div>
-
-                            <div class="page3">
-                                <div class="input-signup3">
-                                    <input class="inp" type="text" placeholder="LinkedIn Profile Url" name="linkedin">
-                                    <input class="inp" type="text" placeholder="Github Profile Url" name="github">
-                                    <div class="resume-upload">
-                                        <label for="resume" style="padding: 0.5rem 1rem;">
-                                            <i class="fa fa-file file-icon"></i>Upload your resume
-                                        </label>
-                                        <input accept="application/pdf" enctype="multipart/form-data" name = "resume" type="file" id="resume" required>
-                                    </div>
-                                    {% with messages = get_flashed_messages() %} 
-                                        {% if messages %}
-                                            <div class="error-msg">
-                                                {{ messages[0] }} Go to <a href="{{ url_for('login_candidate') }}">login page</a>.
-                                            </div>
-                                        {% endif %}
-                                    {% endwith %}
-                                </div>
-                                <div class="last-button">
-                                    <button type="button" id="back2" class="btn btn-secondary" onclick="backPage3()">Back</button>
-                                    <button type="submit" id="submit" class="btn btn-primary" style="float: right;" onclick="login-candidate">Submit</button>
-
-                                </div>
+                            <div class="last-button">
+                                <a href="/login-candidate" style="text-decoration: none;">Sign in instead</a>
+                                <button type="button" id="next" class="btn btn-primary"
+                                    onclick="chngPage1()">Next</button>
                             </div>
                         </div>
-                    </form>
+
+                        <div class="page2">
+                            <div class="input-signup2">
+
+                                <input class="inp" type="text" placeholder="First name" name="firstname" required>
+                                <input class="inp" type="text" placeholder="Last name" name="lastname" required>
+
+                                <div>
+                                    <h6 style="margin-bottom: 1rem;">Select gender</h6>
+                                    <div class="button-radio d-flex">
+                                        <input type="radio" id="female" name="gender" value="Female">
+                                        <label class="bton" for="female" style="margin-right: 0.5rem;">Female</label>
+                                        <input type="radio" id="male" name="gender" value="Male">
+                                        <label class="bton" for="male" style="margin-right: 0.5rem;">Male</label>
+                                        <input type="radio" id="other" name="gender" value="Other">
+                                        <label class="bton" for="other" style="margin-right: 0.5rem;">Other</label>
+                                    </div>
+                                </div>
+                                <div class="pro-photo">
+                                    <label for="pro-photo" style="padding: 0.5rem 1rem;">
+                                        <i class="fa fa-camera camera-icon"></i>Upload profile picture
+                                    </label>
+                                    <input accept="image/*" type="file" enctype="multipart/form-data" id="pro-photo"
+                                        name="profile_pic">
+                                </div>
+                            </div>
+                            <div class="last-button">
+                                <button type="button" id="back1" class="btn btn-secondary"
+                                    onclick="backPage2()">Back</button>
+                                <button type="button" id="next" class="btn btn-primary"
+                                    onclick="chngPage2()">Next</button>
+                            </div>
+                        </div>
+
+                        <div class="page3">
+                            <div class="input-signup3">
+                                <input class="inp" type="text" placeholder="LinkedIn Profile Url" name="linkedin">
+                                <input class="inp" type="text" placeholder="Github Profile Url" name="github">
+                                <div class="resume-upload">
+                                    <label for="resume" style="padding: 0.5rem 1rem;">
+                                        <i class="fa fa-file file-icon"></i>Upload your resume
+                                    </label>
+                                    <input accept="application/pdf" enctype="multipart/form-data" name="resume"
+                                        type="file" id="resume" required>
+                                </div>
+                                {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                <div class="error-msg">
+                                    {{ messages[0] }} Go to <a href="{{ url_for('login_candidate') }}">login page</a>.
+                                </div>
+                                {% endif %}
+                                {% endwith %}
+                            </div>
+                            <div class="last-button">
+                                <button type="button" id="back2" class="btn btn-secondary"
+                                    onclick="backPage3()">Back</button>
+                                <button type="submit" id="submit" class="btn btn-primary" style="float: right;"
+                                    onclick="login-candidate">Submit</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="right col-lg-4 col-md-5 col-sm-6 d-flex align-items-center">
                 <img class="img-right" src="../static/img/signup.png" alt="">

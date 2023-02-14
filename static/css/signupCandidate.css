@@ -1,110 +1,177 @@
-.img-right{
-    max-width:100%;
-    max-height:100%;
+.img-right {
+  max-width: 100%;
+  max-height: 100%;
 }
-#next{
-    float: right;
+
+#next {
+  float: right;
 }
-.cont input , .cont textarea , .cont .pro-photo , .resume-upload , .bton{
+
+.cont input,
+.cont textarea,
+.cont .pro-photo,
+.resume-upload,
+.bton {
   border-radius: 0.5rem;
 }
-.inp , .bton{
-    width: 100%;
-    background-color: #545454;
-    padding: 0.3rem 0.7rem;
+
+.inp,
+.bton {
+  width: 100%;
+  background-color: #545454;
+  padding: 0.3rem 0.7rem;
 }
-input::placeholder { 
-    color: white;
-    opacity: 1;
+
+input::placeholder {
+  color: white;
+  opacity: 1;
 }
-input{
-    color: white;
-  }
-#checkbx{
-    margin-right: 0.3rem;
+
+input {
+  color: white;
 }
-.cont{
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
+
+#checkbx {
+  margin-right: 0.3rem;
 }
-.form-signup{
+
+.cont {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.form-signup {
   width: 50%;
 }
-.input-signup1 , .input-signup2{
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.8rem;
+
+.input-signup1,
+.input-signup2 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.8rem;
 }
-.input-signup3{
+
+.input-signup3 {
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
 }
-.page2 , .page3{
+
+.page2,
+.page3 {
   display: none;
 }
-.button-radio input{
+
+.button-radio input {
   display: none;
 }
-.pro-photo{
+
+.pro-photo {
   background-color: #545454;
   margin-top: 0.5rem;
 }
-.last-button{
+
+.last-button {
   margin-top: 2rem;
 }
-.bton{
-    width: 100%;
-    background-color: #545454;
-    color: white;
-  }
 
-  .button-radio input[type="radio"] {
-    opacity: 0.011;
-  }
-  
-  .button-radio input[type="radio"]:checked + label , .bton:hover {
-    background-color: white;
-    color: black;
-  }
-  .camera-icon , .file-icon{
-    color: white;
-    margin-right: 0.5rem;
-  }
-  #pro-photo{
-    display: none;
-  }
-  #pro-photo::after{
-    display: block;
-  }
-  #resume{
-    display: none;
-  }
-  .resume-upload{
-    background-color: #545454;
-  }
-  .error-msg{
-    color: rgb(247, 136, 136);
-    margin-top: 1rem;
-    padding: 0 1rem;
-  }
-  
-@media only screen and (max-width: 992px){
-  .form-signup{
+.bton {
+  width: 100%;
+  background-color: #545454;
+  color: white;
+}
+
+.button-radio input[type="radio"] {
+  opacity: 0.011;
+}
+
+.button-radio input[type="radio"]:checked+label,
+.bton:hover {
+  background-color: white;
+  color: black;
+}
+
+.camera-icon,
+.file-icon {
+  color: white;
+  margin-right: 0.5rem;
+}
+
+#pro-photo {
+  display: none;
+}
+
+#pro-photo::after {
+  display: block;
+}
+
+#resume {
+  display: none;
+}
+
+.resume-upload {
+  background-color: #545454;
+}
+
+.error-msg {
+  color: rgb(247, 136, 136);
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+#pass-req-button{
+  display: none;
+  padding: 0.2rem;
+  background-color: transparent;
+  border: 1px solid red;
+}
+
+#message {
+  display: none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+}
+
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+
+@media only screen and (max-width: 992px) {
+  .form-signup {
     width: auto;
   }
 }
-@media only screen and (max-width: 576px){
-    .img-right{
-        display: none;
-    }
-    .page1 .cont{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-    .create-acc{
-        text-align: center;
-    }
+
+@media only screen and (max-width: 576px) {
+  .img-right {
+    display: none;
+  }
+
+  .page1 .cont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .create-acc {
+    text-align: center;
+  }
 }
