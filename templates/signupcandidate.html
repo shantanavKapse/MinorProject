@@ -23,16 +23,21 @@ Home | signup
                                     autofocus="" required>
                                 <input class="inp" type="text" placeholder="Create username" name="username"
                                     autofocus="" required>
-                                <input class="inp" id="passwd" type="password" placeholder="Create Password"
+                                <div style="display: flex;">
+                                    <input class="inp" id="passwd" type="password" placeholder="Create Password"
                                     name="password" autofocus="" required>
-                                <button id="pass-req-button" >Password requirements</button>
-                                <div id="message" class="passwod-req">
-                                    <p>Password must contain the following:</p>
-                                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                                    <p id="number" class="invalid">A <b>number</b></p>
-                                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                                    <i class="info-icon fa fa-info-circle" aria-hidden="true">
+                                        <div id="message" class="passwod-req">
+                                            <p>Password must contain the following:</p>
+                                            <p id="letter" class="invalid">A lowercase letter</p>
+                                            <p id="capital" class="invalid">A uppercase letter</p>
+                                            <p id="number" class="invalid">A number</p>
+                                            <p id="length" class="invalid">8 to 15 characters</p>
+                                            <p id="specialChar" class="invalid">A special character</p>
+                                        </div>
+                                    </i>
                                 </div>
+                                <div class="msg-req">Passwod requirements not matching</div>
                                 <label>
                                     <input id="checkbx" type="checkbox" name="showPwd" onclick="showpasswd()">Show
                                     password
