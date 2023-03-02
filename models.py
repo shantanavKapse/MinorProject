@@ -148,3 +148,12 @@ class Candidate_skills(db.Model):
     candidate_username = db.Column(db.String(200), db.ForeignKey("candidate.username"), primary_key=True)
     skill_id = db.Column(db.Integer, db.ForeignKey("skill.skill_id"), primary_key=True)
     level = db.Column(db.Enum(SkillRange))
+
+class Personality_result(db.Model):
+    username = db.Column(db.String(100), primary_key=True)
+    Extraversion = db.Column(db.Float)
+    Neuroric = db.Column(db.Float)
+    Agreeableness = db.Column(db.Float)
+    Conscientiousness = db.Column(db.Float)
+    Open_to_experience = db.Column(db.Float)
+    cluster = db.Column(db.Integer)

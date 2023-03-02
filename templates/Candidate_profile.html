@@ -6,9 +6,11 @@
   Home | Profile
 {% endblock %}
 
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+</head>
+
 {% block body %}
-
-
 <div>
     <div class="profile-pic">
     <img src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture" >
@@ -31,12 +33,17 @@
 
 <h5>take the personality test</h5>
 <a href="{{ url_for('personality_test') }}" class="">Take Test</a>
+<div>
+    <canvas id="chart" width="100" height="100"></canvas>
+</div>
+    <script src="{{ url_for('static', filename='js/candidate_profile.js') }}"></script>
+
 <a herf="#" class="">Reset Password</a><br>
 <a href="{{ url_for('auth.logout') }}" class="">Logout</a>
 <a href="{{ url_for('editprofile', username=candidate.username) }}" class="">Edit Profile</a>
 
-
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static', filename='js/candidate_profile.js') }}"></script>
 {% endblock %}

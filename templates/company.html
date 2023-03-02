@@ -8,7 +8,20 @@
 
 {% block body %}
 <div class="company-body">
-    
+    <h1>COMPANY</h1>
+    {% if company|length > 0 %}
+      {% for company in company %}
+
+      <p>Company Name</p>
+      {{company.company_name}}
+      <p>Founded on</p>
+      {{company.founded_on}}
+      <p>Website</p>
+      {{company.website}}
+
+      {% endfor %}
+    {% endif %}
+
 </div>
 {% endblock %}
 

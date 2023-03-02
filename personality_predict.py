@@ -3,6 +3,7 @@ import math
 import numpy as np
 import joblib
 
+model = joblib.load('personality_predict.joblib')
 questions = open('questions.json', 'r').read()
 questions = json.loads(questions)
 q_ids = list(questions['questions'].keys())
@@ -22,9 +23,9 @@ def predict_personality(data):
     indices = [q_ids.index(k) for k in data.keys()]
     init_arr[indices] = [x for x in data.values()]
     nis = (init_arr - 1) / 4
-    model = joblib.load('personality_predict.joblib')
 
-    cluster = model.predict(nis)
+
+    cluster = model.predict([nis])
 
     ans_vals = (init_arr[indices]-3)*answer_type[indices]
 

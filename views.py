@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 import models
 from app import app , db
 from flask import render_template,  request, redirect, send_from_directory, url_for , flash
-from models import Test, Question, Company, Candidate , Candidate_skills , Skill
+from models import Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result
 from personality_predict import predict_personality
 import random
 
@@ -56,7 +56,7 @@ def about():
     return render_template('about.html' , user_class=user_class)
 
 
-@app.route('/personality-test', methods=['GET', 'POST'])
+@app.route('/personality-test/', methods=['GET', 'POST'])
 @login_required
 def personality_test():
     ques_op = random.choices(Question.query.filter_by(domain_name='Openness').all(),k=2) 
@@ -68,7 +68,28 @@ def personality_test():
     if request.method == 'POST':
         data = request.form
 
-        return redirect(url_for('answer_page', json=json.dumps(data)), code=307)
+        prediction_data = {}
+        for tag, ans in data.items():
+            prediction_data[tag] = ans
+
+        ans = predict_personality(prediction_data)
+
+        print(ans)
+        extraversion = ans['Extraversion']
+        neuroticism = ans['Neurotic']
+        agreeableness = ans['Agreeableness']
+        conscientiousness = ans['Conscientiousness']
+        openness_to_experience = ans['Open to experience']
+        cluster = ans['cluster']
+        #print(extraversion , neuroticism , agreeableness , conscientiousness , openness_to_experience , cluster)
+        #print(current_user.username)
+        test_result = Personality_result(username = current_user.username , Extraversion = extraversion , Neuroric = neuroticism , Agreeableness = agreeableness , Conscientiousness = conscientiousness , Open_to_experience = openness_to_experience , cluster = cluster)
+
+        db.session.add(test_result)
+        db.session.commit()
+
+        return redirect(url_for('Candidate_profile' , username = current_user.username))
+        #return redirect(url_for('answer_page', json=json.dumps(data)), code=307)
 
     ques_lis=[]
     [ques_lis.extend(l) for l in (ques_op,ques_nc,ques_ev,ques_ac,ques_cc)]
@@ -76,8 +97,8 @@ def personality_test():
 
     return render_template('questionnaire.html', list_of_question=ques_lis)
 
-
-@app.route('/answer', methods=['POST'])
+"""
+@app.route('/answer', methods=['GET' , 'POST'])
 def answer_page():
     if request.method == 'POST':
         data = request.form
@@ -89,11 +110,13 @@ def answer_page():
         ans = predict_personality(prediction_data)
         print(ans)
         return render_template('answer_page.html', results=ans)
-    
+"""
+   
 
 @app.route('/company')
 def company():
-    return render_template('company.html')
+    company = Company.query.all()
+    return render_template('company.html' , company = company)
 
 
 @app.route('/Candidate-Profile/<username>', methods =['GET' , 'POST'])
@@ -115,9 +138,17 @@ def Candidate_profile(username):
             return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic , skills=skills)
         else:
             return 'Candidate not found' , 404
-    
         
-    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic, skills=skills)
+    results = Personality_result.query.filter_by(username=username).first()
+
+    if not results:
+        return 'No results found!'
+    
+    labels = ['Extraversion', 'Neuroticism', 'Agreeableness', 'Conscientiousness', 'Openness']
+    data = [results.Extraversion, results.Neuroric, results.Agreeableness, results.Conscientiousness, results.Open_to_experience]
+
+        
+    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic, skills=skills , labels=json.dumps(labels), data=json.dumps(data))
 
 
 @app.route('/Company-Profile/<username>', methods =['GET'])
