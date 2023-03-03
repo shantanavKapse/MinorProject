@@ -123,6 +123,14 @@ def company():
 @login_required
 def Candidate_profile(username):
     if request.method=='GET':
+        results = Personality_result.query.filter_by(username=username).first()
+    
+        if not results:
+            return 'No results found!'
+    
+        labels = ['Extraversion', 'Neuroticism', 'Agreeableness', 'Conscientiousness', 'Openness']
+        data = [results.Extraversion, results.Neuroric, results.Agreeableness, results.Conscientiousness, results.Open_to_experience]
+
         candidate = Candidate.query.filter_by(username=username).first()
         skills = []
         for skill in candidate.skills:
@@ -135,20 +143,11 @@ def Candidate_profile(username):
                 
             else:
                 profile_pic = None
-            return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic , skills=skills)
+            return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic , skills=skills , labels=labels , data=data)
         else:
             return 'Candidate not found' , 404
         
-    results = Personality_result.query.filter_by(username=username).first()
-
-    if not results:
-        return 'No results found!'
-    
-    labels = ['Extraversion', 'Neuroticism', 'Agreeableness', 'Conscientiousness', 'Openness']
-    data = [results.Extraversion, results.Neuroric, results.Agreeableness, results.Conscientiousness, results.Open_to_experience]
-
-        
-    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic, skills=skills , labels=json.dumps(labels), data=json.dumps(data))
+    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic, skills=skills , labels=labels , data=data)
 
 
 @app.route('/Company-Profile/<username>', methods =['GET'])
@@ -187,21 +186,36 @@ def editprofile(username):
             if profile_pic:
                 os.remove(os.path.join(app.config["UPLOAD_PROFILE"], candidate.profile_pic))
                 profile_pic.save(os.path.join(app.config["UPLOAD_PROFILE"], profile_pic.filename))
+                candidate.profile_pic = profile_pic.filename
 
             resume = request.files.get('resume')
             if resume :
                 os.remove(os.path.join(app.config["UPLOAD_RESUME"] , candidate.resume))
                 resume.save(os.path.join(app.config["UPLOAD_RESUME"] ,resume.filename))
+                candidate.resume=resume.filename
             
-
-            candidate.profile_pic = profile_pic.filename
             candidate.username= request.form.get('username')
             candidate.email= request.form.get('email')
             candidate.firstname=request.form.get('firstname')
             candidate.lastname=request.form.get('lastname')
             candidate.linkedin=request.form.get('linkedin')
             candidate.github=request.form.get('github')
-            candidate.resume=resume.filename
+            
+            db.session.commit()
+
+            skill_name = request.form.get('skill_name')
+            skill_level = request.form.get('skill_level')
+
+            # find skill in database or create new skill
+            skill = Skill.query.filter_by(name=skill_name).first()
+            if not skill:
+                skill = Skill(name=skill_name)
+                db.session.add(skill)
+                db.session.commit()
+
+            # add skill to candidate
+            candidate_skill = Candidate_skills( candidate_username=username, skill_id=skill.skill_id, level=skill_level )
+            db.session.add(candidate_skill)
             db.session.commit()
 
         flash(f"profile updated succefully",'success')

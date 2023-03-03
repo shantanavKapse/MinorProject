@@ -30,7 +30,12 @@
         {% endfor %}
     </p>
 </div>
-
+{% for labels in labels %}
+    {{labels}}
+{% endfor %}
+{% for data in data %}
+    {{ data }}
+{% endfor %}
 <h5>take the personality test</h5>
 <a href="{{ url_for('personality_test') }}" class="">Take Test</a>
 <div>
