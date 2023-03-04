@@ -6,10 +6,6 @@
   Home | Profile
 {% endblock %}
 
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-</head>
-
 {% block body %}
 <div>
     <div class="profile-pic">
@@ -39,9 +35,8 @@
 <h5>take the personality test</h5>
 <a href="{{ url_for('personality_test') }}" class="">Take Test</a>
 <div>
-    <canvas id="chart" width="100" height="100"></canvas>
+    <canvas id="myChart" style="width: 100%;max-width: 700px;"></canvas>
 </div>
-    <script src="{{ url_for('static', filename='js/candidate_profile.js') }}"></script>
 
 <a herf="#" class="">Reset Password</a><br>
 <a href="{{ url_for('auth.logout') }}" class="">Logout</a>
@@ -50,5 +45,43 @@
 {% endblock %}
 
 {% block js %}
-<script src="{{ url_for('static', filename='js/candidate_profile.js') }}"></script>
+<script>
+    var labels = {{labels|tojson}};
+    var data = {{data|tojson}};
+    var barColors = [ "red" , "green", "blue" , "yellow" , "purple"];
+    new Chart("myChart", {
+        type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Personality Results',
+            data: data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
 {% endblock %}
