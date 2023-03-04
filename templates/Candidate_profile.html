@@ -46,9 +46,8 @@
 
 {% block js %}
 <script>
-    var labels = {{labels|tojson}};
-    var data = {{data|tojson}};
-    var barColors = [ "red" , "green", "blue" , "yellow" , "purple"];
+    var labels = `{{labels}}`;
+    var data = `{{data}}`;
     new Chart("myChart", {
         type: 'bar',
     data: {
