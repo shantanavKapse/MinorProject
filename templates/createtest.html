@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+{% endblock %}
+{% block title %}
+  Company | CreateTest
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="profile-pic">
+    <img src="/uploads/ProfilePic/{{ company_logo }}" alt="Company Logo" >
+</div>
+
+<div>
+    <p> User: {{company.username}} <br>
+        Company Name : {{company.company_name}}<br>
+    </p>
+    <form id="create-test-form" method ="POST" enctype = "multipart/form-data">
+        <div class="">
+            No. of Questions
+            <input class="" type="text" name ="noofquestion" autofocus="" ><br>
+
+            <label for="QuDifficulty">Choose Difficulty</label>
+            <select id="QuDifficulty" name="QuDifficulty" >
+                <option value="">-- Select Level --</option>
+                <option value="Easy">Easy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Difficult">Difficult</option>
+            </select>
+
+            Question
+            <input class="" type="text" name ="question" autofocus="" ><br>
+
+            Category
+            <input class="" type="text"  name="category" autofocus="" ><br>
+
+
+            Correct Option
+            <input class="" type="text"  name="correctoption" autofocus="" ><br>
+            Option2
+            <input class="" type="text"  name="option1" autofocus="" ><br>
+            Option3
+            <input class="" type="text"  name="option2" autofocus="" ><br>
+            Option4
+            <input class="" type="text"  name="option3" autofocus="" ><br>
+
+
+
+            <label style=>
+                <input type="checkbox" name="ispublic"> Public
+            </label>
+               
+            <a href="" >
+                <button class="">
+                    Add
+                </button>
+            </a>
+    
+
+           <a href="#">
+            <input type="submit"/>
+           </a>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="error-msg">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}  
+           
+    
+    </form>    
+    
+</div>
+
+<div>
+    {% for publicquestion in publicquestions %}
+    <div class="">
+
+
+        <h6>ALL PUBLIC QUESTIONS</h6>
+
+
+        <p class="">{{publicquestion.question}}</p>
+        Correct Answer
+        <p class="">{{publicquestion.correctoption}}</p>
+        created by 
+        <p class="">{{publicquestion.company_username}}</p>
+    </div>
+        
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

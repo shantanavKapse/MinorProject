@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 import models
 from app import app , db
 from flask import render_template,  request, redirect, send_from_directory, url_for , flash
-from models import Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result
+from models import TechnicialQuestion, Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result
 from personality_predict import predict_personality
 import random
 
@@ -46,14 +46,7 @@ def test_detail(id):
 
 @app.route('/about')
 def about():
-    if current_user.__class__ == models.Company:
-        user_class = 'company'
-    elif current_user.__class__ == models.Candidate:
-        user_class = 'candidate'
-    else:
-        user_class = 'anonymous'
-    
-    return render_template('about.html' , user_class=user_class)
+    return render_template('about.html')
 
 
 @app.route('/personality-test/', methods=['GET', 'POST'])
@@ -205,7 +198,7 @@ def editprofile(username):
 
             skill_name = request.form.get('skill_name')
             skill_level = request.form.get('skill_level')
-
+  
             # find skill in database or create new skill
             skill = Skill.query.filter_by(name=skill_name).first()
             if not skill:
@@ -256,5 +249,46 @@ def profile_pic():
     
     
     return dict( user_class=user_class , profile_pic=profile_pic, company_logo=company_logo)
+
+
+@app.route('/create-test', methods=['GET', 'POST'])
+@login_required
+def create_test():
+    company = Company.query.filter_by(username=current_user.username).first()
+    publicquestions = TechnicialQuestion.query.filter_by(is_public=True).all()
+
+    if request.method == 'POST':
+        difficulty = request.form['QuDifficulty']
+        question = request.form['question']
+        category = request.form['category']
+        option1 = request.form['option1']
+        option2 = request.form['option2']
+        option3 = request.form['option3']
+        correct_option = request.form['correctoption']
+        is_public = 'ispublic' in request.form
+
+
+        new_question = TechnicialQuestion(
+            question=question,
+            category=category,
+            company_username = company.username, 
+            difficulty = difficulty,
+            option1=option1,
+            option2=option2,
+            option3=option3,
+            correctoption=correct_option,
+            is_public=is_public
+        )
+
+        db.session.add(new_question)
+        db.session.commit()
+
+        flash('Question created successfully!', 'success')
+        return redirect(url_for('create_test'))
+
+
+    return render_template ('createtest.html',company=company, publicquestions=publicquestions)
+
+
 
 

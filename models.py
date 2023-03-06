@@ -157,3 +157,23 @@ class Personality_result(db.Model):
     Conscientiousness = db.Column(db.Float)
     Open_to_experience = db.Column(db.Float)
     cluster = db.Column(db.Integer)
+
+class Difficulty(enum.Enum):
+    Easy  = 'Easy'
+    Moderate = 'Moderate'
+    Difficult = 'Difficult'
+
+class TechnicialQuestion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(2000), nullable=False)
+    category = db.Column(db.String(500), nullable=False)
+    company_username = db.Column(db.String(100))
+    difficulty = db.Column(db.Enum(Difficulty))
+    option1 = db.Column(db.String(2000), nullable=False)
+    option2 = db.Column(db.String(2000), nullable=False)
+    option3 = db.Column(db.String(2000), nullable=False)
+    correctoption = db.Column(db.String(2000), nullable=False)
+    is_public = db.Column(db.Boolean, nullable=False)
+
+    def _repr_(self):
+        return f'TechnicialQuestion(id={self.id}, question="{self.question}", category="{self.category}", difficulty="{self.difficulty}", company_username="{self.company_username}" , correctoption="{self.correctoption})'
