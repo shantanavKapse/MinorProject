@@ -43,7 +43,7 @@ body {
     transform-origin: bottom left;
 }
 
-button {
+.navbar-toggler {
     background: rgb(122, 118, 118);
     color: white;
     border-radius: 4px;
@@ -99,15 +99,38 @@ button {
     margin: 1% 0;
 }
 
-.profile-pic {
-    display: flex;
-    align-items: center;
+.profile-pic{
+    width: 28px;
+    height: 28px;
+    margin-left: 5px;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
 }
 
-.profile-pic img {
-    width: 100%;
+.btn-profile{
+    border-radius: 40px;
+    background-color: white ;
+    color: black;
+    padding: 5px 15px;
+}
+.dropdown-profile{
+    display: none;
+    display: block;
+    border-radius: 10px;
+    right: 12px;
+    top: 70px;
+    position: fixed;
+    background-color: white;
+}
+.dropdown-content{
+    border-radius: 10px;
+    padding: 4px 51px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+.dropdown-content:hover{
+    background-color: #928e8e;
+    text-decoration: none;
+    color: black;
 }

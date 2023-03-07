@@ -20,27 +20,23 @@
                 <a href="/tests" id="clickid3" class="nav-item nav-link">Tests</a>
                 <a href="/company" id="clickid4" class="nav-item nav-link">Company</a>
                 {% if current_user.is_authenticated %}
-<!--                <a href="{{ url_for('home') }}" class="navbar-item">-->
-<!--                    Profile-->
-<!--                </a>-->
                 {% if user_class == 'company' %}
-                    Hello Team {{current_user.company_name}}!
-                    {% if company_logo %}
-                    <div class="profile-pic">
-                        <a href=" {{url_for('Company_profile' , username = current_user.username) }}" class="navbar-item" >
-                            <img src="/uploads/ProfilePic/{{ company_logo }}" alt="Profile Picture" >
-                        </a>
-                    </div>
-                    {% endif %}
+                    <a href=" {{url_for('Company_profile' , username = current_user.username) }}" class="navbar-item" >
+                        <button class="btn-profile">
+                            {{current_user.company_name}}<img src="/uploads/ProfilePic/{{ company_logo }}" class="profile-pic" alt="Profile Picture" >
+                        </button>
+                        
+                    </a>
                 {% elif user_class == 'candidate' %}
-                    Hello {{current_user.username}}
-                    {% if profile_pic %}
-                    <div class="profile-pic">
-                        <a href=" {{url_for('Candidate_profile' , username = current_user.username) }}" class="navbar-item" >
-                            <img src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture" >
-                        </a>
+                <div class="profile-div">
+                    <button class="btn-profile nav-item" onclick="showDropdown()">
+                        {{current_user.username}}<img src="/uploads/ProfilePic/{{ profile_pic }}" class="profile-pic" alt="Profile Picture" >
+                    </button>
+                    <div class="dropdown-profile">
+                        <a class="dropdown-content" href="{{url_for('Candidate_profile' , username = current_user.username) }}">Profile</a>
+                        <a class="dropdown-content" href="{{ url_for('auth.logout') }}">Logout</a>
                     </div>
-                    {% endif %}
+                </div>
                 {% endif %}
                 {% endif %}          
                 {% if not current_user.is_authenticated %}

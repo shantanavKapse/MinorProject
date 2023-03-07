@@ -26,3 +26,12 @@ function changeNav() {
     document.querySelector(".main-nav").classList.toggle("change");
   }
   
+function showDropdown(){
+    const dropdown = document.querySelector(".dropdown-profile");
+    if(dropdown.style.display == "none"){
+        dropdown.style.display = "block";
+    }
+    else{
+        dropdown.style.display = "none";
+    }
+}
