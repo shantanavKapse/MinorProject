@@ -117,12 +117,12 @@ def company():
 def Candidate_profile(username):
     if request.method=='GET':
         results = Personality_result.query.filter_by(username=username).first()
-    
-        if not results:
-            return 'No results found!'
-    
-        labels = ['Extraversion', 'Neuroticism', 'Agreeableness', 'Conscientiousness', 'Openness']
-        data = [results.Extraversion, results.Neuroric, results.Agreeableness, results.Conscientiousness, results.Open_to_experience]
+        if results:
+            labels = ['Extraversion', 'Neuroticism', 'Agreeableness', 'Conscientiousness', 'Openness']
+            data = [results.Extraversion, results.Neuroric, results.Agreeableness, results.Conscientiousness, results.Open_to_experience]
+        else:
+            labels = None
+            data = None        
 
         candidate = Candidate.query.filter_by(username=username).first()
         skills = []
@@ -136,11 +136,11 @@ def Candidate_profile(username):
                 
             else:
                 profile_pic = None
-            return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic , skills=skills , labels=labels , data=data)
+            return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic , skills=skills , labels=labels , data=data, results=results)
         else:
             return 'Candidate not found' , 404
         
-    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic, skills=skills , labels=labels , data=data)
+    return render_template('Candidate_profile.html', candidate=candidate, profile_pic=profile_pic, skills=skills , labels=labels , data=data , results=results)
 
 
 @app.route('/Company-Profile/<username>', methods =['GET'])

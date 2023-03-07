@@ -26,18 +26,13 @@
         {% endfor %}
     </p>
 </div>
-{% for labels in labels %}
-    {{labels}}
-{% endfor %}
-{% for data in data %}
-    {{ data }}
-{% endfor %}
 <h5>take the personality test</h5>
 <a href="{{ url_for('personality_test') }}" class="">Take Test</a>
+{% if results %}
 <div>
     <canvas id="myChart" style="width: 100%;max-width: 700px;"></canvas>
 </div>
-
+{% endif %}
 <a herf="#" class="">Reset Password</a><br>
 <a href="{{ url_for('auth.logout') }}" class="">Logout</a>
 <a href="{{ url_for('editprofile', username=candidate.username) }}" class="">Edit Profile</a>
@@ -45,6 +40,7 @@
 {% endblock %}
 
 {% block js %}
+{% if results %}
 <script>
     var labels ={{labels|tojson}};
     var data = {{data|tojson}};
@@ -83,4 +79,5 @@
     }
 });
 </script>
+{% endif %}
 {% endblock %}
