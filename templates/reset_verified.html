@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
 
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/reset_verified.css' )}}">
+{% endblock %}
+
 {% block header %}
   <h1>{% block title %}Reset Password{% endblock %}</h1>
 {% endblock %}
 
 {% block body %}
-  <form method="POST">
-    <label for="username">User Name</label>
-    <input type="text" name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Reset Password">
-  </form>
+<div class="reset-main d-flex justify-content-center">
+  <div class="row d-flex align-items-center justify-content-center">
+    <form class="reset-form col-lg-5 col-md-6 col-sm-8 col-10 d-flex align-items-center justify-content-center" method="POST">
+      <P class="reset-heading">Reset Password</P>
+      <input class="reset-input" type="text" name="username" id="username" placeholder="Enter Username" required>
+      <input class="reset-input" type="password" name="password" id="password" placeholder="Create New Password" required>
+      <div class="checkbox-reset">
+        <input class="checkbox" type="checkbox" name="showPwd" onclick="showpasswd()">Show password
+      </div>
+      <input class="reset-input" type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" required>
+
+      <button class="reset-button" type="submit">Reset Password</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/resetVerified.js') }}"></script>
 {% endblock %}

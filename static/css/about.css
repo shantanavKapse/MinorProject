@@ -1,9 +1,10 @@
 .about-body{
    min-height: 40vh;
 }
-.about-top{
-   background-image: url("../img/about_img.jpg");
-   height: 40vh;
+
+.about-img{
    width: 100%;
-   background-size: cover;
+   height: 60vw;
+   object-position: 0;
+   object-fit: cover;
 }

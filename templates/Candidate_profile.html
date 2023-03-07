@@ -46,8 +46,8 @@
 
 {% block js %}
 <script>
-    var labels = `{{labels}}`;
-    var data = `{{data}}`;
+    var labels ={{labels|tojson}};
+    var data = {{data|tojson}};
     new Chart("myChart", {
         type: 'bar',
     data: {

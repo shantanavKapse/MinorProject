@@ -70,11 +70,10 @@ Home | signup
                                     </div>
                                 </div>
                                 <div class="pro-photo">
-                                    <label for="pro-photo" style="padding: 0.5rem 1rem;">
+                                    <label id="profile-label" for="pro-photo" style="padding: 0.5rem 1rem;">
                                         <i class="fa fa-camera camera-icon"></i>Upload profile picture
                                     </label>
-                                    <input accept="image/*" type="file" enctype="multipart/form-data" id="pro-photo"
-                                        name="profile_pic">
+                                     <input accept="image/*" type="file" enctype="multipart/form-data" id="pro-photo" name = "profile_pic" onchange="showProfileImage()">
                                 </div>
                             </div>
                             <div class="last-button">
@@ -90,11 +89,10 @@ Home | signup
                                 <input class="inp" type="text" placeholder="LinkedIn Profile Url" name="linkedin">
                                 <input class="inp" type="text" placeholder="Github Profile Url" name="github">
                                 <div class="resume-upload">
-                                    <label for="resume" style="padding: 0.5rem 1rem;">
+                                    <label id="resume-label" for="resume" style="padding: 0.5rem 1rem;">
                                         <i class="fa fa-file file-icon"></i>Upload your resume
                                     </label>
-                                    <input accept="application/pdf" enctype="multipart/form-data" name="resume"
-                                        type="file" id="resume" required>
+                                    <input accept="application/pdf" enctype="multipart/form-data" name = "resume" type="file" id="resume" onchange="showFileName()" required>
                                 </div>
                                 {% with messages = get_flashed_messages() %}
                                 {% if messages %}

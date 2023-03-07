@@ -28,10 +28,7 @@ function backPage3(){
     document.querySelector('.page2').style.display = "block";
 }
 
-function fileName(){
-    let input = document.getElementById('pro-photo');
-    let output = document.getElementsByClassName('new');
-
-    output.innerHTML = input.files.name;
-
+function showProfileImage(){
+    const profileImage = document.querySelector('#pro-photo');
+    document.querySelector('#profile-label').textContent = profileImage.files[0].name;
 }

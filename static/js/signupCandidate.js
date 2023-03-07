@@ -27,6 +27,16 @@ function backPage3() {
   document.querySelector(".page2").style.display = "block";
 }
 
+function showProfileImage(){
+  const profileImage = document.querySelector('#pro-photo');
+  document.querySelector('#profile-label').textContent = profileImage.files[0].name;
+}
+
+function showFileName(){
+  const resume = document.querySelector('#resume');
+  document.querySelector('#resume-label').textContent = resume.files[0].name;
+}
+
 const myInput = document.getElementById("passwd");
 const infoIcon = document.querySelector(".info-icon");
 const msgReq = document.querySelector(".msg-req");

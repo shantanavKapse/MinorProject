@@ -52,10 +52,10 @@
                                     
                                     <input class="inp" type="text" placeholder="Company website link" name="website">
                                     <div class="pro-photo">
-                                        <label for="pro-photo" style="padding: 0.5rem 1rem;">
+                                        <label id="profile-label" for="pro-photo" style="padding: 0.5rem 1rem;">
                                             <i class="fa fa-camera camera-icon"></i>Upload profile picture
                                         </label>
-                                        <input accept="image/*" type="file" enctype="multipart/form-data" id="pro-photo" onchange="fileName()" name="company_logo">
+                                        <input accept="image/*" type="file" enctype="multipart/form-data" id="pro-photo" onchange="showProfileImage()" name="company_logo">
                                     </div>
                                     {% with messages = get_flashed_messages() %}
                                         {% if messages %}
