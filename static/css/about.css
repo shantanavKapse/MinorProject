@@ -1,10 +1,93 @@
 .about-body{
    min-height: 40vh;
 }
-
+.about-top{
+   position: relative;
+   text-align: center;
+}
+.about-img-div{
+   position: relative;
+}
+.about-img-div::after {
+   content: '';
+   position: absolute;
+   left: 0; top: 0;
+   width: 100%; height: 100%;
+   background: linear-gradient(rgba(84, 80, 83, 0.7),rgba(84, 80, 83, 0.7));
+ }
 .about-img{
    width: 100%;
-   height: 60vw;
-   object-position: 0;
-   object-fit: cover;
+   height: 30vh;
+  -webkit-filter: blur(2px);
+}
+.about-heading{
+   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 6vw;
+  font-weight: bolder;
+}
+.about-description{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   box-shadow: rgba(69, 66, 66, 0.15) 0px 2px 8px;
+   padding: 2rem 0;
+   margin-top: 4rem;
+}
+.about-description p{
+   font-size: 1.5rem;
+   padding: 0 1rem;
+}
+.about-description, .team-main{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.about-contact{
+   margin-top: 1rem;
+   font-size: 0.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.team-main{
+   margin-top: 3rem;
+}
+.about-text{
+   text-align: justify;
+   font-size: 1.5rem;
+}
+.about-mid{
+   margin-top: 2rem;
+}
+.team-container{
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   padding: 2rem 0;
+}
+.developer{
+   height: fit-content;
+   border-radius: 2px;
+   padding: 2rem 0;
+   margin: 3rem 3rem;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
+   row-gap: 0.8rem;
+   box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+.developer-image{
+   width: 180px;
+   height: 180px;
+   border-radius: 50%;
+}
+.developer-name{
+   font-size: 1.5rem;
 }

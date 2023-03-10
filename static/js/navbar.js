@@ -27,11 +27,12 @@ function changeNav() {
   }
   
 function showDropdown(){
-    const dropdown = document.querySelector(".dropdown-profile");
-    if(dropdown.style.display == "none"){
-        dropdown.style.display = "block";
-    }
-    else{
-        dropdown.style.display = "none";
-    }
+    document.querySelector(".dropdown-profile").classList.toggle("show");
 }
+
+window.onclick = function(event) {
+    const openDropdown = document.querySelector(".dropdown-profile")
+    if (!event.target.matches('.btn-profile') && !event.target.matches('.dropdown-content')  && openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+    } 
+  }

@@ -21,12 +21,15 @@
                 <a href="/company" id="clickid4" class="nav-item nav-link">Company</a>
                 {% if current_user.is_authenticated %}
                 {% if user_class == 'company' %}
-                    <a href=" {{url_for('Company_profile' , username = current_user.username) }}" class="navbar-item" >
-                        <button class="btn-profile">
-                            {{current_user.company_name}}<img src="/uploads/ProfilePic/{{ company_logo }}" class="profile-pic" alt="Profile Picture" >
-                        </button>
-                        
-                    </a>
+                <div class="profile-div">
+                    <button class="btn-profile nav-item" onclick="showDropdown()">
+                        {{current_user.company_name}}<img src="/uploads/ProfilePic/{{ company_logo }}" class="profile-pic" alt="Profile Picture" >
+                    </button>
+                    <div class="dropdown-profile">
+                        <a class="dropdown-content" href="{{url_for('Company_profile' , username = current_user.username) }}">Profile</a>
+                        <a class="dropdown-content" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </div>
+                </div>
                 {% elif user_class == 'candidate' %}
                 <div class="profile-div">
                     <button class="btn-profile nav-item" onclick="showDropdown()">

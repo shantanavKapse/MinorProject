@@ -86,6 +86,64 @@ input[type=date]:invalid::-webkit-datetime-edit {
     margin-top: 1rem;
     padding: 0 1rem;
   }
+  .valid {
+    color: green;
+  }
+  
+  .valid:before {
+    position: relative;
+    left: -35px;
+  }
+  
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    left: -35px;
+  }
+  
+  .msg-req{
+    display: none;
+    color: red;
+  }
+  
+  .info-icon{
+    position: relative;
+    align-self: center;
+    margin-right: -25px;
+    padding-left: 5px;
+    display: none;
+  }
+  
+  .passwod-req{
+    width: 34vh;
+    background-color: white;
+    color: black;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: -222px;
+  }
+  
+  .passwod-req p{
+    font-size: 12px;
+    font-family: roboto;
+  }
+  
+  .info-icon .passwod-req{
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .info-icon:hover .passwod-req{
+    visibility: visible;
+  }
+  .show{
+    display:block;
+  }
   @media only screen and (max-width: 992px){
     .form-signup{
       width: auto;

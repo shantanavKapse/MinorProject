@@ -1,15 +1,61 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/about.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/about.css')}}">
 {% endblock %}
 {% block title %}
-    Home | About
+Home | About
 {% endblock %}
 
 {% block body %}
 <div class="about-body">
     <div class="about-top">
-        <img class="about-img img-fluid" src="../static/img/img3.jpg" alt="">
+        <div class="about-img-div">
+            <img class="about-img" src="../static/img/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background.jpg" alt="">
+        </div>
+        <p class="about-heading">About Us</p>
+    </div>
+    <div class="container about-mid">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-10 about-description">
+                <p class="about-text">
+                    Nominator is a candidate shortlisting website which is made for the purpose of removing the burden
+                    of companies which they face while selecting the resumes of candidates who have applied for a job
+                    role. Through this website, they can easily shortlist resumes of candidates and take a personality
+                    test of the candidate which is saved as his/her profile. The organisation can check how eligible the
+                    candidate is for a particular job.
+                </p>
+                <div class="about-contact">
+                    <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                    <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
+                    <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                    <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container team-main">
+        <div class="row team-container">
+            <div class="developer col-lg-4 col-md-6 col-sm-12 col-12">
+                <img class="developer-image" src="../static/img/images.png" alt="">
+                <div class="developer-name">Shantanav Kapse</div>
+                <div class="developer-role">ML engineer</div>
+            </div>
+            <div class="developer col-lg-4 col-md-6 col-sm-12 col-12">
+                <img class="developer-image" src="../static/img/frontend.jpg" alt="">
+                <div class="developer-name">Vanshika Rathore</div>
+                <div class="developer-role">Frontend Developer</div>
+            </div>
+            <div class="developer col-lg-4 col-md-6 col-sm-12 col-12">
+                <img class="developer-image" src="../static/img/wp3907489-wanda-wallpapers.jpg" alt="">
+                <div class="developer-name">Nutan Shinde</div>
+                <div class="developer-role">Backend developer</div>
+            </div>
+            <div class="developer col-lg-4 col-md-6 col-sm-12 col-12">
+                <img class="developer-image" src="../static/img/Iron-Man-Wallpaper-1920x1080-2.jpg" alt="">
+                <div class="developer-name">Nandini Shinde</div>
+                <div class="developer-role">Backend and Frontend Developer</div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

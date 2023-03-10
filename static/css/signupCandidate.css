@@ -3,7 +3,7 @@
   max-height: 100%;
 }
 
-#next {
+#next1 , #next2 {
   float: right;
 }
 
@@ -152,13 +152,13 @@ input {
 }
 
 .passwod-req{
-  width: 35vh;
+  width: 34vh;
   background-color: white;
   color: black;
   padding: 0.5rem;
   border-radius: 5px;
-  margin-top: -17px;
-  margin-left: 21px;
+  margin-top: 10px;
+  margin-left: -222px;
 }
 
 .passwod-req p{
@@ -175,7 +175,9 @@ input {
 .info-icon:hover .passwod-req{
   visibility: visible;
 }
-
+.show{
+  display:block;
+}
 @media only screen and (max-width: 992px) {
   .form-signup {
     width: auto;
