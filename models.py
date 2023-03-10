@@ -59,8 +59,9 @@ class Candidate(db.Model, UserMixin):
     github = db.Column(db.String(100))
     resume = db.Column(db.String(200), default=False)
     gender = db.Column(db.Enum(CandidateGender))
+    about_me = db.Column(db.String(500), nullable = True)
     profile_pic = db.Column(db.String(200) , nullable = True , default = 'default_pic.jpg')
-    skills = db.relationship('Skill',secondary="candidate_skills", backref='candidate', lazy=True)
+    skills = db.relationship('Skill', secondary="candidate_skills", backref='candidate', lazy=True)
 
 
     def __repr__(self):
@@ -104,6 +105,9 @@ class Company(db.Model, UserMixin):
     founder = db.Column(db.String(100), nullable=False)
     founded_on = db.Column(db.DateTime, nullable=False)
     company_logo = db.Column(db.String(200) , nullable = False)
+    questions = db.relationship('TechnicalQuestion', backref='company', lazy=True)
+    tests = db.relationship('TechnicalTest' , backref='company', lazy=True)
+
 
     def __repr__(self):
         return f"Company: {self.username}"
@@ -163,11 +167,15 @@ class Difficulty(enum.Enum):
     Moderate = 'Moderate'
     Difficult = 'Difficult'
 
-class TechnicialQuestion(db.Model):
+class Question_test(db.Model):
+    question_id = db.Column(db.Integer, db.ForeignKey('technical_question.id'), primary_key=True)
+    test_id = db.Column(db.Integer, db.ForeignKey('technical_test.id'), primary_key=True)
+
+class TechnicalQuestion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(2000), nullable=False)
     category = db.Column(db.String(500), nullable=False)
-    company_username = db.Column(db.String(100))
+    owner_company = db.Column(db.String(100), db.ForeignKey("company.username"))
     difficulty = db.Column(db.Enum(Difficulty))
     option1 = db.Column(db.String(2000), nullable=False)
     option2 = db.Column(db.String(2000), nullable=False)
@@ -175,5 +183,30 @@ class TechnicialQuestion(db.Model):
     correctoption = db.Column(db.String(2000), nullable=False)
     is_public = db.Column(db.Boolean, nullable=False)
 
-    def _repr_(self):
-        return f'TechnicialQuestion(id={self.id}, question="{self.question}", category="{self.category}", difficulty="{self.difficulty}", company_username="{self.company_username}" , correctoption="{self.correctoption})'
+
+    def __repr__(self):
+        return f'TechnicialQuestion(id={self.id}, question="{self.question}", category="{self.category}", difficulty="{self.difficulty}", owner_company="{self.owner_company}" , correctoption="{self.correctoption} , is_public="{self.is_public}")'
+
+
+class TechnicalTest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    owner_company = db.Column(db.String(100), db.ForeignKey("company.username"))
+    duration = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    job_role = db.Column(db.String(255), nullable=False)
+    is_public = db.Column(db.Boolean, nullable=False)
+    questions = db.relationship('TechnicalQuestion', secondary="question_test", backref='technical_test')
+
+
+    def __repr__(self):
+        return f'TechnicalTest(id={self.id}, name="{self.name}", duration="{self.duration}", job_role="{self.job_role}", is_public="{self.is_public}")'
+
+    def add_questions(self, question_ids):
+        for question_id in question_ids:
+            question = TechnicalQuestion.query.get(question_id)
+            if question:
+                self.questions.append(question)
+            
+

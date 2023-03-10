@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 import models
 from app import app , db
 from flask import render_template,  request, redirect, send_from_directory, url_for , flash
-from models import TechnicialQuestion, Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result
+from models import TechnicalQuestion, Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result , TechnicalTest
 from personality_predict import predict_personality
 import random
 
@@ -251,13 +251,46 @@ def profile_pic():
     return dict( user_class=user_class , profile_pic=profile_pic, company_logo=company_logo)
 
 
-@app.route('/create-test', methods=['GET', 'POST'])
+@app.route('/create-test/<test_id>', defaults = {'test_id': None} , methods=['GET', 'POST'])
 @login_required
-def create_test():
-    company = Company.query.filter_by(username=current_user.username).first()
-    publicquestions = TechnicialQuestion.query.filter_by(is_public=True).all()
+def create_test(test_id):
+    if not test_id:
+        company = Company.query.filter_by(username=current_user.username).first()
+        public_question = TechnicalQuestion.query.filter_by(is_public=True , owner_company=current_user.username).all()
+        if request.method == 'POST':
+            testname = request.form['Testname']
+            duration = request.form['duration']
+            job_description = request.form['job_description']
+            job_role = request.form['job_role']
+            is_public = 'ispublic' in request.form
+            question_ids = request.form.getlist('questions')
 
-    if request.method == 'POST':
+            new_test = TechnicalTest(
+            name=testname,
+            description = job_description,
+            duration=duration,
+            job_role=job_role,
+            is_public=is_public
+            )
+
+            db.session.add(new_test)
+            db.session.commit()
+
+            new_test.add_questions(question_ids=question_ids)
+            db.session.commit()
+            
+            flash('Test created successfully!', 'success')
+            return redirect(url_for('Company_profile', username=company.username))
+
+
+    return render_template ('createtest.html',company=company, public_question=public_question)
+
+
+@app.route('/add-question', methods=['GET', 'POST'])
+@login_required
+def add_question():
+    company = Company.query.filter_by(username=current_user.username).first()
+    if request.method=='POST':    
         difficulty = request.form['QuDifficulty']
         question = request.form['question']
         category = request.form['category']
@@ -268,11 +301,10 @@ def create_test():
         is_public = 'ispublic' in request.form
 
 
-        new_question = TechnicialQuestion(
-            question=question,
+        new_question = TechnicalQuestion( question=question, 
             category=category,
-            company_username = company.username, 
             difficulty = difficulty,
+            owner_company = current_user.username ,
             option1=option1,
             option2=option2,
             option3=option3,
@@ -282,13 +314,8 @@ def create_test():
 
         db.session.add(new_question)
         db.session.commit()
-
         flash('Question created successfully!', 'success')
-        return redirect(url_for('create_test'))
+        return redirect(url_for('Company_profile', username=company.username))
 
 
-    return render_template ('createtest.html',company=company, publicquestions=publicquestions)
-
-
-
-
+    return render_template ('addquestion.html',company=company)

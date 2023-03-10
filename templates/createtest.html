@@ -1,7 +1,24 @@
 {% extends 'base.html' %}
 {% block css %}
+<style>
+    .profile-pic{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        float: left;
+        margin-top: 15px;
+        margin-left: 15px;
+
+    }
+    
+    .profile-pic img {
+        width: 100%;
+    }
+</style>
     <link rel="stylesheet" href="{{url_for('static', filename='')}}">
 {% endblock %}
+
 {% block title %}
   Company | CreateTest
 {% endblock %}
@@ -18,83 +35,41 @@
     </p>
     <form id="create-test-form" method ="POST" enctype = "multipart/form-data">
         <div class="">
-            No. of Questions
-            <input class="" type="text" name ="noofquestion" autofocus="" ><br>
-
-            <label for="QuDifficulty">Choose Difficulty</label>
-            <select id="QuDifficulty" name="QuDifficulty" >
-                <option value="">-- Select Level --</option>
-                <option value="Easy">Easy</option>
-                <option value="Moderate">Moderate</option>
-                <option value="Difficult">Difficult</option>
-            </select>
-
-            Question
-            <input class="" type="text" name ="question" autofocus="" ><br>
-
-            Category
-            <input class="" type="text"  name="category" autofocus="" ><br>
-
-
-            Correct Option
-            <input class="" type="text"  name="correctoption" autofocus="" ><br>
-            Option2
-            <input class="" type="text"  name="option1" autofocus="" ><br>
-            Option3
-            <input class="" type="text"  name="option2" autofocus="" ><br>
-            Option4
-            <input class="" type="text"  name="option3" autofocus="" ><br>
-
-
-
-            <label style=>
+            <label for="name">Test Name:</label>
+            <input type="text" name="Testname" autofocus="" required>
+          </div>
+          <div class="">
+            <label for="duration">Test Duration (minutes):</label>
+            <input type="number" name="duration" autofocus="" required>
+          </div>
+          <div class="">
+            <label for="job_description">Job Description:</label>
+            <input type="text" name="job_description" autofocus="" required>
+          </div>
+          <div class="">
+            <label for="job_role">Job Role:</label>
+            <input type="text" name="job_role" autofocus="" required>
+          </div>
+          <div>
+            <label>
                 <input type="checkbox" name="ispublic"> Public
             </label>
-               
-            <a href="" >
-                <button class="">
-                    Add
-                </button>
-            </a>
-    
+          </div>
 
-           <a href="#">
-            <input type="submit"/>
-           </a>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="error-msg">
-                    {{ messages[0] }}
-                </div>
-            {% endif %}
-            {% endwith %}  
-           
-    
+          <h4>Select Public Questions:</h4>
+
+          {% for publicquestion in public_question %}
+          <div class="">
+            <input class="" type="checkbox" name="questions" value="{{publicquestion.id}}">
+            <label class="">{{publicquestion.question}} Created By {{ publicquestion.owner_company}}</label>
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary">Create Test</button>
     </form>    
     
 </div>
-
-<div>
-    {% for publicquestion in publicquestions %}
-    <div class="">
-
-
-        <h6>ALL PUBLIC QUESTIONS</h6>
-
-
-        <p class="">{{publicquestion.question}}</p>
-        Correct Answer
-        <p class="">{{publicquestion.correctoption}}</p>
-        created by 
-        <p class="">{{publicquestion.company_username}}</p>
-    </div>
-        
-    {% endfor %}
-</div>
-
-
-
 {% endblock %}
+
 
 {% block js %}
 {% endblock %}

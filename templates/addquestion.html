@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    .profile-pic{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        float: left;
+        margin-top: 15px;
+        margin-left: 15px;
+
+    }
+    
+    .profile-pic img {
+        width: 100%;
+    }
+</style>
+    <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+{% endblock %}
+
+{% block title %}
+  Company | CreateTest
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="profile-pic">
+    <img src="/uploads/ProfilePic/{{ company_logo }}" alt="Company Logo" >
+</div>
+
+<div>
+    <p> User: {{company.username}} <br>
+    </p>
+
+    <form id="" method="post" enctype="multipart/form-data">
+        Question
+            <input class="" type="text" name ="question" autofocus="" ><br>
+
+            Category
+            <input class="" type="text"  name="category" autofocus="" ><br>
+           
+            <label for="QuDifficulty">Choose Difficulty</label>
+            <select id="QuDifficulty" name="QuDifficulty" >
+                <option value="">-- Select Level --</option>
+                <option value="Easy">Easy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Difficult">Difficult</option>
+            </select>
+
+            Correct Option
+            <input class="" type="text"  name="correctoption" autofocus="" ><br>
+            Option2
+            <input class="" type="text"  name="option1" autofocus="" ><br>
+            Option3
+            <input class="" type="text"  name="option2" autofocus="" ><br>
+            Option4
+            <input class="" type="text"  name="option3" autofocus="" ><br>
+
+
+
+            <label style=>
+                <input type="checkbox" name="ispublic"> Public
+            </label>
+               
+            <a href="" >
+                <button class="">
+                    Submit
+                </button>
+            </a>
+    
+    </form>
+{% endblock body %}

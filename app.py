@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mail import Mail
 import os
-from flask_migrate import Migrate
+from flask_migrate import Migrate 
 
 
 
@@ -30,7 +30,7 @@ app.config['MAIL_USERNAME'] = "shindenutan015@gmail.com"
 app.config['MAIL_PASSWORD'] = "lfkcmcdgxgagafxs"
 app.config['TESTING'] = False
 mail = Mail(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, render_as_batch=True)
 
 
 
