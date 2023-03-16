@@ -33,13 +33,13 @@ Home | Nominator
                 <li class="test-container">
                   <div class="test-container-row">
                     <h4 class="test-elements">{{test.name}}</h4>
-                    <p class="test-elements">{{test.creation_date.strftime('%Y-%m-%d')}}</p>
+                    <p class="test-elements">{{test.created_at.strftime('%Y-%m-%d')}}</p>
                   </div>
                   <div class="test-container-row">
                     <h6 class="test-elements">
-                      <i class="bi bi-bookmark-check-fill"></i>&nbsp;{{test.company_name}}
+                      <i class="bi bi-bookmark-check-fill"></i>&nbsp;{{test.owner_company}}
                     </h6>
-                    <p class="test-elements">{{test.creation_date.strftime('%H:%M')}}</p>
+                    <p class="test-elements">{{test.created_at.strftime('%H:%M')}}</p>
                   </div>
                 </li>
               </a>

@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 import models
 from app import app , db
 from flask import render_template,  request, redirect, send_from_directory, url_for , flash, jsonify, abort
-from models import TechnicalQuestion, Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result , TechnicalTest
+from models import TechnicalQuestion, Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result , TechnicalTest , TechnicalAnswer , Question_test
 from personality_predict import predict_personality
 import random
 
@@ -20,7 +20,7 @@ def home():
     else:
         user_class = 'anonymous'
     print(user_class)
-    test = Test.query.order_by(Test.creation_date.desc()).limit(5).all()
+    test =TechnicalTest.query.order_by(TechnicalTest.created_at.desc()).limit(5).all()
     
     
         
@@ -30,14 +30,14 @@ def home():
 @app.route('/tests')
 def tests():
     
-    all_tests = Test.query.all()
+    all_tests = TechnicalTest.query.all()
     return render_template('tests.html', tests=all_tests)
 
 
 @app.route('/test/<int:id>' , methods=['GET', 'POST'])
 @login_required
 def test_detail(id):
-    test = Test.query.filter_by(id=id).first()
+    test = TechnicalTest.query.filter_by(id=id).first()
     if request.method=="POST":
         return redirect(url_for('personality-test'))
 
@@ -262,7 +262,8 @@ def create_test(test_id):
             description = job_description,
             duration=duration,
             job_role=job_role,
-            is_public=is_public
+            is_public=is_public,
+            owner_company = current_user.username
             )
 
             db.session.add(new_test)
@@ -362,3 +363,75 @@ def candidate_detail(username):
     results = Personality_result.query.filter_by(username=username).first()
 
     return render_template('candidatedetail.html' , candidate=candidate)
+
+
+
+@app.route('/company-detail/<username>' , methods=['GET'])
+def company_detail(username):
+    company = Company.query.filter_by(username=username).first()
+    return render_template('companydetail.html' , company = company )
+
+
+@app.route('/take-test/<test_id>' , methods=['GET', 'POST'])
+@login_required
+def take_test(test_id):
+    if current_user.__class__ == models.Candidate:
+        technicaltest = TechnicalTest.query.filter_by(id=test_id).first()
+        if not technicaltest:
+            abort(404)
+        if not technicaltest.is_public :
+            flash('You are not authorized to access this test!', 'danger')
+            return redirect(url_for('tests'))
+        if request.method == 'POST':
+            candidate = current_user.username
+            for question in technicaltest.questions:
+                answer = request.form.get(question.id)
+                if answer:
+                    new_answer = TechnicalAnswer(
+                        candidate = candidate,
+                        candidate_username=current_user.username,
+                        question_id=question.id,
+                        answer=answer , 
+                        is_correct=request.form.get(f"question-{question.id}") == question.correctoption
+                    )
+                    db.session.add(new_answer)
+                    db.session.commit()
+            flash('Test submitted successfully!', 'success')
+            return redirect(url_for('test_result' , username=current_user.username , test_id=test_id))
+                
+        return render_template('taketest.html', technicaltest=technicaltest)
+
+    else:
+        return ("YOU ARE NOT ELIGIBLE TO TAKE THE TEST")
+
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST' :
+        search_query = request.form.get('search_query')
+        #print(search_query)
+        company = Company.query.filter(Company.username.like('%{}%'.format(search_query))).first()
+        user = Candidate.query.filter(Candidate.username.like('%{}%'.format(search_query))).first()
+        #print(company)
+        if company and (search_query == company.username or company.company_name) :
+        #print(username)
+            return redirect(url_for('company_detail', username=company.username))
+        if user and (search_query == user.username or user.name):
+            return redirect(url_for('candidate_detail', username=company.username))
+        # No matching results found
+        flash('No results found for your search query')
+        return redirect(url_for('home'))
+    return render_template('home.html')
+
+
+"""
+@app.route('/test-result/<test_id>/<username>' , methods=['GET', 'POST'])
+@login_required
+def test_result(username , test_id):
+    answers = TechnicalAnswer.query.join(TechnicalQuestion).join(Question_test).join(TechnicalTest).filter(TechnicalAnswer.candidate_username == username).filter(TechnicalTest.id == test_id).all()
+    # Calculate the candidate's score
+    num_correct = sum(1 for answer in answers if answer.is_correct)
+    score = round((num_correct / len(answers)) * 100, 2)
+    return render_template('testresult.html', test_id=test_id, candidate_username=username, answers=answers, score=score)
+"""

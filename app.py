@@ -1,3 +1,4 @@
+from random import shuffle
 from flask import Flask, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -64,6 +65,16 @@ def uploads(filename):
 from auth import auth as auth_blueprint
 
 app.register_blueprint(auth_blueprint)
+
+
+def shuffle_list(lst):
+    shuffle(lst)
+    return lst
+app.jinja_env.filters['shuffle'] = shuffle_list
+def _enumerate(seq):
+    return enumerate(seq)
+
+app.jinja_env.filters['enumerate'] = _enumerate
 
 if __name__ == '__main__':
     app.debug = True

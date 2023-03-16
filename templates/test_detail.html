@@ -18,20 +18,20 @@
             <div class="test-detail-container">
                 <div class="test-detail-container-left">
                     <span>
-                        Created By
+                        <h5>Created By <a class="company-name" href="/company-detail/{{test.owner_company}}">{{ test.owner_company }}</a> </h5>
                     </span>
-                    <h5>
-                        <a class="company-name" href="#">{{test.company_name}}</a>
-                    </h5>
+                    <h5>Job Role : {{test.job_role}}</h5>
+                    <h5>Decription : {{test.description}}</h5>
                 </div>
                 <div class="test-detail-container-right">
                     <span>
                         Uploaded on
                     </span>
-                    <h5>{{test.creation_date.strftime('%Y-%m-%d')}}</h5>
-                    <h5>{{test.creation_date.strftime('%H:%M')}}</h5>
+                    <h5>{{test.created_at.strftime('%Y-%m-%d')}}</h5>
+                    <h5>{{test.created_at.strftime('%H:%M')}}</h5>
                 </div>
             </div>
+            <a class="company-name" href="/take-test/{{test.id}}">TAKE TEST{{test.id }}</a>
         </div>
     </div>
 </div>

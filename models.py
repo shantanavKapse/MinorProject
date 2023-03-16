@@ -213,3 +213,11 @@ class TechnicalTest(db.Model):
                 self.questions.append(question)
             
 
+class TechnicalAnswer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    candidate_username = db.Column(db.String, db.ForeignKey('candidate.username'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('technical_question.id'), nullable=False)
+    answer = db.Column(db.String(2000), nullable=False)
+    is_correct = db.Column(db.Boolean, nullable=False, default=False)
+    candidate = db.relationship('Candidate', backref='user_answers')
+    question = db.relationship('TechnicalQuestion', backref='user_answers')

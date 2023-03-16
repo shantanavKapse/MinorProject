@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    .profile-pic{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        float: left;
+        margin-top: 15px;
+        margin-left: 15px;
+
+    }
+    
+    .profile-pic img {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+{% block title %}
+    {{company.username}}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="profile-pic">
+    <img src="/uploads/ProfilePic/{{ company.company_logo }}" alt="Company Logo" >
+</div>
+
+<div>
+    <p> Company: {{company.company_name}} <br>
+        Email : {{company.email}}<br>
+        Company Name : {{company.company_name}}<br>
+        About : {{company.desc}}<br>
+        Company Website : {{company.website}}<br>
+        Founder : {{company.founder}}<br>
+        Founded On : {{company.founded_on}}<br>
+
+    </p>
+</div>    
+{% endblock %}

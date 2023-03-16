@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block css %}
+{% endblock %}
+
+{% block title %}
+  Company | TakeTest
+{% endblock %}
+
+{% block body %}
+
+<h1>Take Test</h1>
+	<form method="POST">
+		{% for i, question in technicaltest.questions|enumerate %}
+		<div class="question">
+			<h3>{{ i + 1 }}. {{ question.question }}</h3>
+			{% set options = [question.option1, question.option2, question.option3, question.correctoption]|shuffle %}
+			{% for option in options %}
+			<input type="radio" name="answer{{ question.id }}" value="{{ option }}">{{ option }}<br>
+			{% endfor %}
+		</div>
+		{% endfor %}
+		<input type="submit" value="Submit">
+	</form>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

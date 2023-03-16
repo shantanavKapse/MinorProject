@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Result{% endblock %}</h1>
+{% endblock %}
+
+{% block body %}
+
+<h1>Test Result</h1>
+<p>Score: {{ score }}/{{ total_score }}</p>
+{% for question in questions %}
+  {% if question.user_answer.is_correct %}
+    <p>Question {{ loop.index }}. {{ question.question }}</p>
+    <p>Your answer: {{ question.user_answer.answer }} (correct)</p>
+  {% else %}
+    <p>Question {{ loop.index }}. {{ question.question }}</p>
+    <p>Your answer: {{ question.user_answer.answer }}</p>
+    <p>Correct answer: {{ question.correctoption }}</p>
+  {% endif %}
+{% endfor %}
+{% endblock %}
