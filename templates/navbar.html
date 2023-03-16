@@ -33,7 +33,12 @@
                 {% elif user_class == 'candidate' %}
                 <div class="profile-div">
                     <button class="btn-profile nav-item" onclick="showDropdown()">
-                        {{current_user.username}}<img src="/uploads/ProfilePic/{{ profile_pic }}" class="pro-pic" alt="Profile Picture" >
+                        {{current_user.username}}
+                        {% if profile_pic %}
+                        <img src="/uploads/ProfilePic/{{ profile_pic }}" class="pro-pic" alt="Profile Picture" >
+                        {% else %}
+                        <img src="/static/img/default_user.png" class="pro-pic" alt="Profile Picture" >
+                        {% endif %}
                     </button>
                     <div class="dropdown-profile">
                         <a class="dropdown-content" href="{{url_for('Candidate_profile' , username = current_user.username) }}">Profile</a>

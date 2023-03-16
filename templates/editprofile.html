@@ -14,7 +14,11 @@ Home | Edit-Profile
             <div class="row">
                 <div class="col-sm-2 d-inline-flex flex-column align-items-center">
                     <label for="input-newPhoto">
+                        {% if candidate.profile_pic %}
                         <img class="profile-img " width="150px" src="/uploads/ProfilePic/{{ candidate.profile_pic }}">
+                        {% else %}
+                        <img class="profile-img " width="150px" src="/static/img/default_user.png">
+                        {% endif %}
                     </label>
                     <input id="input-newPhoto" type="file" accept="image/*" name="profile_pic"
                         onchange="showProfileImage()">
@@ -25,7 +29,7 @@ Home | Edit-Profile
                 <div class="col-md-12 col-sm-6 text-center">
                     
                     <textarea class="input-large textarea-desc" name="about_me" id="" cols="40" rows="5">
-                        {{candidate.about_me}}
+                        {{candidate.about_me or ""}}
                     </textarea>
                     
                 </div>
@@ -85,7 +89,7 @@ Home | Edit-Profile
                             <div class="center">
                                 <div class="col-md-6">
                                     <h5 class="labels">Skills :</h5>
-                                    <div class="new-skills">
+                                    <div class="new-skills" id="skillbox">
                                         <ul class="ul-newSkills">
                                             <div  class="scrollbar" style="overflow-y:auto; height: 150px; width: max-content; ">
                                                 {% if skills %}
@@ -137,4 +141,7 @@ Home | Edit-Profile
 {% endblock %}
 {% block js %}
 <script src="{{ url_for('static', filename='js/editprofile.js') }}"></script>
+<script>
+    const current_username = '{{current_user.username}}';
+</script>
 {% endblock %}

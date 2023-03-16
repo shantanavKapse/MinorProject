@@ -5,3 +5,5 @@ Flask-SQLAlchemy==2.5.1
 scikit-learn==1.0.2
 flask-mail
 flask-migrate==4.0.4
+nltk
+pypdf2

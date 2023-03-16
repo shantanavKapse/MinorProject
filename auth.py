@@ -8,6 +8,7 @@ import views
 import os
 from sqlalchemy.exc import IntegrityError
 from flaskmail import send_email
+from personality_predict import add_skills
 
 auth = Blueprint('auth', __name__)
 
@@ -49,8 +50,9 @@ def signup_candidate():
             db.session.add(user)
             db.session.commit()
             login_user(user)
+            add_skills(user.username)
             flash(f"Successfully registered candidate, {firstname}")
-            return redirect(url_for('auth.login_candidate'))
+            return redirect(url_for('views.home'))
         except IntegrityError:
             flash('Given Field(s) should satisfy all the requirements. Field(s) not unique.', 'error')
 

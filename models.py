@@ -45,7 +45,7 @@ class Question(db.Model):
 #         return f"{self.username}: {self.email}"
 
 class CandidateGender(enum.Enum):
-    Female  = 'Female'
+    Female = 'Female'
     Male = 'Male'
     Other = 'Other'
 
@@ -140,7 +140,7 @@ class Company(db.Model, UserMixin):
         return user
 
 class SkillRange(enum.Enum):
-    Beginner  = 'Beginner'
+    Beginner = 'Beginner'
     Intermediate = 'Intermediate'
     Advanced = 'Advanced'
 

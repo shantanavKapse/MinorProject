@@ -2,12 +2,17 @@ import json
 import math
 import numpy as np
 import joblib
+from nltk.tokenize import word_tokenize
+from app import db
+from models import Skill, Candidate_skills, Candidate
+from PyPDF2 import PdfReader
 
 model = joblib.load('personality_predict.joblib')
 questions = open('questions.json', 'r').read()
 questions = json.loads(questions)
 q_ids = list(questions['questions'].keys())
 
+SKILLS = {skill.name.lower(): skill.skill_id for skill in Skill.query.all()}
 
 answer_type = np.array([
     1, -1, 1, -1, 1, -1, 1, -1, 1, -1,
@@ -45,3 +50,20 @@ def predict_personality(data):
     }
 
     return ans_obj
+
+
+def add_skills(username):
+    pdf_loc = './uploads/Resumes/' + Candidate.query.filter_by(username=username).first().resume
+    reader = PdfReader(pdf_loc)
+    resume_text = ''
+    for p in reader.pages:
+        resume_text += (p.extract_text() + '\n')
+
+    word_toks = set(tok for tok in word_tokenize(resume_text.lower()) if tok in SKILLS)
+
+    for skill in word_toks:
+        skill_exist = Candidate_skills.query.filter_by(candidate_username=username, skill_id=SKILLS[skill]).first()
+        if not skill_exist:
+            new_skill = Candidate_skills(candidate_username=username, skill_id=SKILLS[skill], level='Intermediate')
+            db.session.add(new_skill)
+            db.session.commit()

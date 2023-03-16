@@ -9,7 +9,11 @@
 {% block body %}
 <div>
     <div class="profile-page-profile-pic">
+    {% if profile_pic %}
     <img src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture" >
+    {% else %}
+    <img src="/static/img/default_user.png" alt="Profile Picture" >
+    {% endif %}
 </div> 
     
     <p> User: {{candidate.username}}<br>

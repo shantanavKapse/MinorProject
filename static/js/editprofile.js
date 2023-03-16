@@ -15,6 +15,7 @@ function addNewSkills() {
     let fetchRes = fetch("/add_skill", options);
     fetchRes.then(res => res.json()).then(d => {
             if (d.status == 200){
+                $('#skillbox').load(' #skillbox > *')
                 //li.appendChild(document.createTextNode(`${skill.value} (${skillLevel.value})`));
                 //ul.appendChild(li);
                 //skill.value = '';
@@ -23,18 +24,18 @@ function addNewSkills() {
                 //ul.scrollTop = ul.scrollHeight;
 
 
-                li.appendChild(document.createTextNode(`${skill.value} (${skillLevel.value})`));
-                let button = li.appendChild(document.createElement("button"));
-                button.setAttribute("type", "button");
-                button.setAttribute("data-skillid", d.skill.skill_id);
-                button.setAttribute("data-userid", d.skill.username);
-                li.lastElementChild.classList.add("delete-skill");
-                //div.lastElementChild.setAttribute("skill", d.skill_id);
-                //li.appendChild(div);
-                ul.appendChild(li);
-                skill.value = '';
-                skillLevel.value = 'Beginner';
-                ul.scrollTop = ul.scrollHeight;
+//                li.appendChild(document.createTextNode(`${skill.value} (${skillLevel.value})`));
+//                let button = li.appendChild(document.createElement("button"));
+//                button.setAttribute("type", "button");
+//                button.setAttribute("data-skillid", d.skill.skill_id);
+//                button.setAttribute("data-userid", d.skill.username);
+//                li.lastElementChild.classList.add("delete-skill", "bi", "bi-trash");
+//                //div.lastElementChild.setAttribute("skill", d.skill_id);
+//                //li.appendChild(div);
+//                ul.appendChild(li);
+//                skill.value = '';
+//                skillLevel.value = 'Beginner';
+//                ul.scrollTop = ul.scrollHeight;
             }
         
         })
