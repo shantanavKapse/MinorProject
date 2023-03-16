@@ -315,7 +315,7 @@ def add_question():
         db.session.add(new_question)
         db.session.commit()
         flash('Question created successfully!', 'success')
-        return redirect(url_for('Company_profile', username=company.username))
+        return redirect(url_for('add_question', username=company.username))
 
 
     return render_template ('addquestion.html',company=company)

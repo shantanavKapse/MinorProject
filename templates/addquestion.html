@@ -1,73 +1,45 @@
 {% extends 'base.html' %}
 {% block css %}
-<style>
-    .profile-pic{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-        float: left;
-        margin-top: 15px;
-        margin-left: 15px;
-
-    }
-    
-    .profile-pic img {
-        width: 100%;
-    }
-</style>
-    <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/addQuestion.css')}}">
 {% endblock %}
 
 {% block title %}
-  Company | CreateTest
+Company | CreateTest
 {% endblock %}
 
 {% block body %}
-<div>
-    <div class="profile-pic">
-    <img src="/uploads/ProfilePic/{{ company_logo }}" alt="Company Logo" >
+
+<div class="row question-row">
+    <div class="col-lg-4 col-md-5 col-sm-6 col-8">
+        <form method="post" enctype="multipart/form-data" class="question-form">
+            <div class="txt-wel">{{company.username}} </div>
+            <input class="input is-large question" type="text" name="question" placeholder="Enter Question">
+            <input class="input is-large category-question" type="text" name="category" placeholder="Enter Category">
+            <div style="width: 100%;">
+                <label for="QuDifficulty">Choose Difficulty</label>
+                <select class="difficulty-question" id="QuDifficulty" name="QuDifficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Difficult">Difficult</option>
+                </select>
+            </div>
+            <input class="input is-large correct-option" type="text" name="correctoption" placeholder="Enter correct option">
+            <input class="input is-large option2" type="text" name="option1" placeholder="Enter option2">
+            <input class="input is-large option3" type="text" name="option2" placeholder="Enter option3">
+            <input class="input is-large option4" type="text" name="option3" placeholder="Enter option4">
+            <label>
+                <input type="checkbox" name="ispublic"> Make the question public?
+            </label>
+            <button type="submit" class="add-questions-btn">
+                Add    
+            </button>
+        
+        </form>
+    </div>
 </div>
 
-<div>
-    <p> User: {{company.username}} <br>
-    </p>
+{% endblock %}
 
-    <form id="" method="post" enctype="multipart/form-data">
-        Question
-            <input class="" type="text" name ="question" autofocus="" ><br>
+{% block js %}
 
-            Category
-            <input class="" type="text"  name="category" autofocus="" ><br>
-           
-            <label for="QuDifficulty">Choose Difficulty</label>
-            <select id="QuDifficulty" name="QuDifficulty" >
-                <option value="">-- Select Level --</option>
-                <option value="Easy">Easy</option>
-                <option value="Moderate">Moderate</option>
-                <option value="Difficult">Difficult</option>
-            </select>
-
-            Correct Option
-            <input class="" type="text"  name="correctoption" autofocus="" ><br>
-            Option2
-            <input class="" type="text"  name="option1" autofocus="" ><br>
-            Option3
-            <input class="" type="text"  name="option2" autofocus="" ><br>
-            Option4
-            <input class="" type="text"  name="option3" autofocus="" ><br>
-
-
-
-            <label style=>
-                <input type="checkbox" name="ispublic"> Public
-            </label>
-               
-            <a href="" >
-                <button class="">
-                    Submit
-                </button>
-            </a>
-    
-    </form>
-{% endblock body %}
+{% endblock %}

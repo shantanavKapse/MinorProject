@@ -23,7 +23,7 @@
                 {% if user_class == 'company' %}
                 <div class="profile-div">
                     <button class="btn-profile nav-item" onclick="showDropdown()">
-                        {{current_user.company_name}}<img src="/uploads/ProfilePic/{{ company_logo }}" class="profile-pic" alt="Profile Picture" >
+                        {{current_user.company_name}}<img src="/uploads/ProfilePic/{{ company_logo }}" class="pro-pic" alt="Profile Picture" >
                     </button>
                     <div class="dropdown-profile">
                         <a class="dropdown-content" href="{{url_for('Company_profile' , username = current_user.username) }}">Profile</a>
@@ -33,7 +33,7 @@
                 {% elif user_class == 'candidate' %}
                 <div class="profile-div">
                     <button class="btn-profile nav-item" onclick="showDropdown()">
-                        {{current_user.username}}<img src="/uploads/ProfilePic/{{ profile_pic }}" class="profile-pic" alt="Profile Picture" >
+                        {{current_user.username}}<img src="/uploads/ProfilePic/{{ profile_pic }}" class="pro-pic" alt="Profile Picture" >
                     </button>
                     <div class="dropdown-profile">
                         <a class="dropdown-content" href="{{url_for('Candidate_profile' , username = current_user.username) }}">Profile</a>

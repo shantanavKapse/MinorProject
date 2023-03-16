@@ -1,72 +1,41 @@
 {% extends 'base.html' %}
 {% block css %}
-<style>
-    .profile-pic{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-        float: left;
-        margin-top: 15px;
-        margin-left: 15px;
-
-    }
-    
-    .profile-pic img {
-        width: 100%;
-    }
-</style>
-    <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/createTest.css')}}">
 {% endblock %}
 
 {% block title %}
-  Company | CreateTest
+Company | CreateTest
 {% endblock %}
 
 {% block body %}
 <div>
-    <div class="profile-pic">
-    <img src="/uploads/ProfilePic/{{ company_logo }}" alt="Company Logo" >
-</div>
-
-<div>
-    <p> User: {{company.username}} <br>
-        Company Name : {{company.company_name}}<br>
-    </p>
-    <form id="create-test-form" method ="POST" enctype = "multipart/form-data">
-        <div class="">
-            <label for="name">Test Name:</label>
-            <input type="text" name="Testname" autofocus="" required>
-          </div>
-          <div class="">
-            <label for="duration">Test Duration (minutes):</label>
-            <input type="number" name="duration" autofocus="" required>
-          </div>
-          <div class="">
-            <label for="job_description">Job Description:</label>
-            <input type="text" name="job_description" autofocus="" required>
-          </div>
-          <div class="">
-            <label for="job_role">Job Role:</label>
-            <input type="text" name="job_role" autofocus="" required>
-          </div>
-          <div>
-            <label>
-                <input type="checkbox" name="ispublic"> Public
-            </label>
-          </div>
-
-          <h4>Select Public Questions:</h4>
-
+  <form class="create-test-form" method="POST" enctype="multipart/form-data">
+    <div class="row create-test-row">
+      <div class="col-lg-4 col-md-5 col-sm-10 col-10 create-test">
+        <div class="txt-wel">{{company.username}} </div>
+        <input type="text" class="input is-large" name="Testname" placeholder="Test Name" autofocus="" required>
+        <input type="number" class="input is-large" name="duration" placeholder="Test Duration (minutes)" autofocus="" required>
+        <input type="text" class="input is-large" name="job_description" placeholder="Job Description" autofocus="" required>
+        <input type="text" class="input is-large" name="job_role" placeholder="Job Role" autofocus="" required>
+        <div style="width: 100%;">
+          <input type="checkbox" name="ispublic"> Make the test public?
+        </div>
+      </div>
+      <div class="col-lg-5 col-md-6 col-sm-10 col-10 question-list">
+        <div class="text-select">Select Questions</div>
+        <ul class="ul-question">
           {% for publicquestion in public_question %}
-          <div class="">
-            <input class="" type="checkbox" name="questions" value="{{publicquestion.id}}">
-            <label class="">{{publicquestion.question}} Created By {{ publicquestion.owner_company}}</label>
-          </div>
+            <li  class="d-flex checkbox-question-add">
+              <input id="{{publicquestion.id}}" type="checkbox" name="questions">
+              <label class="select-question" for="{{publicquestion.id}}">{{publicquestion.question}} Created By {{ publicquestion.owner_company}}</label>
+            </li>
           {% endfor %}
-          <button type="submit" class="btn btn-primary">Create Test</button>
-    </form>    
-    
+        </ul>
+      </div>
+    </div>
+    <button type="submit" class="create-test-btn">Create Test</button>
+  </form>
+
 </div>
 {% endblock %}
 
