@@ -1,0 +1,105 @@
+.container {
+    width:fit-content;
+}
+
+.edit-main {
+    flex-direction: column;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10PX;
+}
+
+.profile-img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.input-large {
+    /*font-weight: 500;*/
+    font-size: medium;
+    color: #fff;
+    background-color: rgb(28, 28, 30);
+    border-radius: 0.4vw;
+    height: 50 px;
+
+}
+
+.input {
+    /*font-weight: 500;*/
+    font-size: medium;
+    color: #fff;
+    background-color: rgb(28, 28, 30);
+    border-radius: 0.4vw;
+    padding: 0.2vw;
+    max-width: 300px;
+}
+
+.edit-form-conatiner {
+    flex-direction: row;
+    row-gap: 1.15rem;
+}
+
+.labels {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#input-newPhoto {
+    display: none;
+}
+
+.button {
+    background-color: #d63384;
+    color: white;
+    padding: 12px;
+    border-radius: 15px;
+    width: 200px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #d63384;
+}
+.textarea-desc{
+    width: 100%;
+}
+.center {
+    margin: auto;
+    width: fit-content;
+    padding-left: 15%;
+}
+.delete-skill {
+    background-color: transparent;
+    color: red;
+    
+    margin-right: 5px;
+    /*float: right;*/
+    /*size: 7px;
+    height: 15px;
+    width: 15px;*/
+}
+  
+li:hover .delete-skill {
+    display: inline-block;
+}
+.scrollbar {
+    height: 150px;
+    border: 2px dotted rgb(81, 28, 28);
+    overflow-y: scroll; 
+}
+.scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.skill {
+    padding: 5px; 
+    margin-bottom: 20px; 
+}
+
+
+  
+

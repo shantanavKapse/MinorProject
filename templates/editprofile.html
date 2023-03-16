@@ -1,83 +1,140 @@
 {% extends 'base.html' %}
 {% block css %}
-<style>
-    
-    .profile-pic{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-        float: left;
-        margin-top: 15px;
-        margin-left: 15px;
 
-    }   
- 
-    .profile-pic img {
-        width: 100%;
-    }
-</style>
-    <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/editprofile.css')}}">
 {% endblock %}
 {% block title %}
-  Home | Edit-Profile
+Home | Edit-Profile
 {% endblock %}
 
 {% block body %}
-
-<div class="profile-pic">
-    <img src="/uploads/ProfilePic/{{ candidate.profile_pic }}" alt="Profile Picture" >
-</div>
-<form id="edit-profile-form" method ="POST" enctype = "multipart/form-data">
-    <div class="">
-        Edit Profile <br>
-        <input class="" type="hidden" value="{{candidate.username}}" name="oldusername" autofocus="" ><br>
-        username
-        <input class="" type="text" value="{{candidate.username}}" name ="username" autofocus="" ><br>
-        Email
-        <input class="" type="text" value="{{candidate.email}}" name="email" autofocus="" ><br>
-        Firstname
-        <input class="" type="text" value="{{candidate.firstname}}" name="firstname" autofocus="" ><br>
-        Lastname
-        <input class="" type="text" value="{{candidate.lastname}}" name="lastname" autofocus="" ><br>
-        Linkedin profile url
-        <input class="" type="url" value="{{candidate.linkedin}}" name="linkedin" autofocus="" ><br>
-        Github profile url
-        <input class="" type="url" value="{{candidate.github}}" name="github" autofocus="" ><br>
-        <label for="skill_name">Skill Name:</label>
-        <input type="text" id="skill_name" name="skill_name">
-
-        <label for="skill_level">Skill Level:</label>
-        <select id="skill_level" name="skill_level" >
-            <option value="">-- Select Level --</option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
-        </select>
-
-        Change Profile
-        <input accept="image/*" type="file" name="profile_pic"><br>
-
-        Resume
-        <input type="file" name="resume">
-        
-       <a href="#">
-        <input type="submit"/>
-       </a>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="error-msg">
-                {{ messages[0] }}
+<div class="edit-main d-flex align-items-center justify-content-center">
+    <form id="edit-profile-form" method="POST" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2 d-inline-flex flex-column align-items-center">
+                    <label for="input-newPhoto">
+                        <img class="profile-img " width="150px" src="/uploads/ProfilePic/{{ candidate.profile_pic }}">
+                    </label>
+                    <input id="input-newPhoto" type="file" accept="image/*" name="profile_pic"
+                        onchange="showProfileImage()">
+                </div>
+                <div class="col-sm-10 text-center mt-5">
+                    <h2 style="color: #d63384;">Profile Settings</h2>
+                </div>
+                <div class="col-md-12 col-sm-6 text-center">
+                    
+                    <textarea class="input-large textarea-desc" name="about_me" id="" cols="40" rows="5">
+                        {{candidate.about_me}}
+                    </textarea>
+                    
+                </div>
             </div>
-        {% endif %}
-        {% endwith %}  
-       
+        </div>
 
-</form>    
-    
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-md-6">
+                <div class="d-flex text-center justify-content-center">
+                    <div class="p-3 py-5">
+                        <div class="edit-form-conatiner mt-2">
+                            <input type="hidden" class="input" value="{{candidate.username}}" name="oldusername">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="labels">Username</label><br>
+                                    <input type="text" class="text-center input" value="{{candidate.username}}" name="username">
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="labels">First Name</label><br>
+                                    <input type="text" class="text-center input" value="{{candidate.firstname}}" name="firstname">
+                                </div>
+                            </div>
+                            <div class="row">    
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="labels">Last Name</label><br>
+                                    <input type="text" class="text-center input" value="{{candidate.lastname}}" name="lastname">
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="labels">Email</label><br>
+                                    <input type="text" class="text-center input" value="{{candidate.email}}" name="email">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="labels">Linkedin URL</label><br>
+                                    <input type="text" class="text-center input" value="{{candidate.linkedin}}" name="linkedin">
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="labels">Github URL</label><br>
+                                    <input type="text" class="text-center input" value="{{candidate.github}}" name="github">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label class="labels">Resume</label><br>
+                                <input class="text-center input" type="file" value="{{candidate.resume}}" name="resume">
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="p-3 py-5">
+                        <div class="edit-form-container row-mt-2">
+                            <div class="center">
+                                <div class="col-md-6">
+                                    <h5 class="labels">Skills :</h5>
+                                    <div class="new-skills">
+                                        <ul class="ul-newSkills">
+                                            <div  class="scrollbar" style="overflow-y:auto; height: 150px; width: max-content; ">
+                                                {% if skills %}
+                                                    {% for skill in skills %}
+                                                        <li style="display: block; font-size: 1.1vw;"> <span class="skill">{{ skill.name }} ({{ skill.level }})</span>
+                                                            <button type="button" class="bi bi-trash delete-skill" data-skillid="{{skill.id}}" data-userid="{{current_user.username}}"></button>
+                                                            <!--<span id="boot-icon" class="bi bi-trash"></span>-->
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </ul>
+                                        <label class="labels">Add New Skills</label>
+                                        <input type="text" class="text-center input labels skill-box" name="skill_name" placeholder="Enter Skill">
+                                            <select name="skill_level" class="input labels level" id="">
+                                                <option value="Beginner">Beginner</option>
+                                                <option value="Intermediate">Intermediate</option>
+                                                <option value="Advanced">Advanced</option>
+                                            </select><br>
+                                        <button type="button" class="button input" onclick="addNewSkills()">Add Skills</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    
+                                    
+                                    
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button class="button input">Save Profile</button>
+            </div>
+        </div>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="error-msg">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
 </div>
+
 {% endblock %}
-
-
-
-
+{% block js %}
+<script src="{{ url_for('static', filename='js/editprofile.js') }}"></script>
+{% endblock %}

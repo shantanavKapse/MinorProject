@@ -153,6 +153,9 @@ class Candidate_skills(db.Model):
     skill_id = db.Column(db.Integer, db.ForeignKey("skill.skill_id"), primary_key=True)
     level = db.Column(db.Enum(SkillRange))
 
+    def serialize(self):
+        return {"username": self.candidate_username, "skill_id": self.skill_id, "level": self.level.value}
+
 class Personality_result(db.Model):
     username = db.Column(db.String(100), primary_key=True)
     Extraversion = db.Column(db.Float)

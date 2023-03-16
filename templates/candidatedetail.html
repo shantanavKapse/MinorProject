@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+<style>
+    
+    .rounded-circle{
+        border-radius: 50%;
+        width: 200px;
+        height: 125px;
+        overflow: hidden;
+        object-fit: cover;
+    }
+ 
+    .rounded-circle img {
+        width:100%;
+    }
+
+</style>
+{% endblock %}
+{% block title %}
+
+    {{candidate.username}}
+
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="rounded-circle" >
+    <img src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture" >
+
+</div>
+    
+<p> User: {{candidate.username}}<br>
+    Email : {{candidate.email}} <br>
+    First Name : {{candidate.firstname}}<br>
+    Last Name : {{candidate.lastname}}<br>
+    Gender : {{candidate.gender.value}}<br>    
+    LinkedIn URL : {{candidate.linkedin}}<br>
+    Github URL : {{candidate.github}}<br>
+    About Me : {{candidate.about_me}}<br>
+    Predicted personality : <br>
+    Skills : 
+    {% for skill in skills %}
+        <li> {{ skill.name }} ({{ skill.level }})</li>
+    {% endfor %}
+</p>
+{% endblock %}
+

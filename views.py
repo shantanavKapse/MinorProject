@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 
 import models
 from app import app , db
-from flask import render_template,  request, redirect, send_from_directory, url_for , flash
+from flask import render_template,  request, redirect, send_from_directory, url_for , flash, jsonify, abort
 from models import TechnicalQuestion, Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result , TechnicalTest
 from personality_predict import predict_personality
 import random
@@ -127,7 +127,7 @@ def Candidate_profile(username):
         candidate = Candidate.query.filter_by(username=username).first()
         skills = []
         for skill in candidate.skills:
-            print(skills)
+            #print(skills)
             l = Candidate_skills.query.filter_by(candidate_username=candidate.username, skill_id= skill.skill_id).first()
             skills.append({"name": skill.name, "level": l.level.value})
         if candidate:
@@ -163,17 +163,22 @@ def Company_profile(username):
 
 
 
-@app.route('/edit-profile/<username>' , methods=['GET' , 'POST'])
+@app.route('/edit-profile' , methods=['GET' , 'POST'])
 @login_required
-def editprofile(username):
+def editprofile():
     if request.method =='GET':
-        candidate = Candidate.query.filter_by(username=username).first()
-        return render_template('editprofile.html' , candidate=candidate)
+        candidate = current_user
+        skills = []
+        for skill in candidate.skills:
+            #print(skills)
+            l = Candidate_skills.query.filter_by(candidate_username=candidate.username, skill_id= skill.skill_id).first()
+            skills.append({"name": skill.name, "level": l.level.value, "id": skill.skill_id})
+        return render_template('editprofile.html' , candidate=candidate , skills=skills )
 
     if request.method == 'POST':
         old_username = request.form.get('oldusername')
         candidate = Candidate.query.filter_by(username=old_username).first()
-        print(candidate)
+        #print(candidate)
         if candidate:
             profile_pic = request.files.get('profile_pic')
             if profile_pic:
@@ -193,28 +198,15 @@ def editprofile(username):
             candidate.lastname=request.form.get('lastname')
             candidate.linkedin=request.form.get('linkedin')
             candidate.github=request.form.get('github')
+            candidate.about_me=request.form.get('about_me')
             
             db.session.commit()
 
-            skill_name = request.form.get('skill_name')
-            skill_level = request.form.get('skill_level')
-  
-            # find skill in database or create new skill
-            skill = Skill.query.filter_by(name=skill_name).first()
-            if not skill:
-                skill = Skill(name=skill_name)
-                db.session.add(skill)
-                db.session.commit()
-
-            # add skill to candidate
-            candidate_skill = Candidate_skills( candidate_username=username, skill_id=skill.skill_id, level=skill_level )
-            db.session.add(candidate_skill)
-            db.session.commit()
-
         flash(f"profile updated succefully",'success')
-        return redirect(url_for('Candidate_profile', username=username , candidate=candidate))
+        
+        return redirect(url_for('Candidate_profile', username=candidate.username , candidate=candidate ))
 
-    return render_template('editprofile.html' , candidate=candidate)
+    return render_template('editprofile.html' , candidate=candidate , skills=skills)
 
 
 
@@ -315,7 +307,58 @@ def add_question():
         db.session.add(new_question)
         db.session.commit()
         flash('Question created successfully!', 'success')
-        return redirect(url_for('add_question', username=company.username))
+        return redirect(url_for('Company_profile', username=company.username))
 
 
     return render_template ('addquestion.html',company=company)
+
+
+@app.route('/add_skill', methods=["POST"])
+@login_required
+def add_skill():
+    skill_name = request.get_json()['skill_name']
+    skill_level = request.get_json()['skill_level']
+
+    skill= Skill.query.filter_by(name=skill_name).first()
+    
+    if not skill:
+        skill=Skill(name=skill_name)
+        db.session.add(skill)
+        db.session.commit()
+    
+    existing_candidate_skill=Candidate_skills.query.filter_by(candidate_username = current_user.username, skill_id=skill.skill_id ).first()
+
+    if existing_candidate_skill:
+        existing_candidate_skill.level=skill_level
+    else:
+        existing_candidate_skill = Candidate_skills(candidate_username=current_user.username , skill_id = skill.skill_id , level=skill_level)
+    db.session.add(existing_candidate_skill)
+    db.session.commit()
+
+    return jsonify({"status": 200, "message": "Skill added successfully!", "skill": existing_candidate_skill.serialize()})
+
+@app.route('/remove_skill', methods=["POST"])
+@login_required
+def delete_skill():
+    print(request.get_json())
+    skill_id = request.get_json()['skill_id']
+    username = request.get_json()['username']
+
+    if current_user.username == username:
+        existing_candidate_skill=Candidate_skills.query.filter_by(candidate_username = username, skill_id=skill_id ).first()
+
+        if existing_candidate_skill:
+            db.session.delete(existing_candidate_skill)
+            db.session.commit()
+
+        return jsonify({"status": 200, "message": "Success"})
+    else:
+        return jsonify({"status": 403, "message": "Unauthorized Access"})
+    
+
+@app.route('/candidatedetail-profile/<username>')
+def candidate_detail(username):
+    candidate=Candidate.query.filter_by(username=username).first()
+    results = Personality_result.query.filter_by(username=username).first()
+
+    return render_template('candidatedetail.html' , candidate=candidate)
