@@ -385,19 +385,19 @@ def take_test(test_id):
         if request.method == 'POST':
             candidate = current_user.username
             for question in technicaltest.questions:
-                answer = request.form.get(question.id)
+                answer = request.form.get(f"question-{question.id}")
+                is_correct = request.form.get(f"question-{question.id}") == question.correctoption
                 if answer:
                     new_answer = TechnicalAnswer(
-                        candidate = candidate,
                         candidate_username=current_user.username,
                         question_id=question.id,
                         answer=answer , 
-                        is_correct=request.form.get(f"question-{question.id}") == question.correctoption
+                        is_correct= is_correct
                     )
                     db.session.add(new_answer)
                     db.session.commit()
             flash('Test submitted successfully!', 'success')
-            return redirect(url_for('test_result' , username=current_user.username , test_id=test_id))
+            return redirect(url_for('test_result' , username = current_user.username , test_id=test_id))
                 
         return render_template('taketest.html', technicaltest=technicaltest)
 
@@ -425,7 +425,7 @@ def search():
     return render_template('home.html')
 
 
-"""
+
 @app.route('/test-result/<test_id>/<username>' , methods=['GET', 'POST'])
 @login_required
 def test_result(username , test_id):
@@ -434,4 +434,3 @@ def test_result(username , test_id):
     num_correct = sum(1 for answer in answers if answer.is_correct)
     score = round((num_correct / len(answers)) * 100, 2)
     return render_template('testresult.html', test_id=test_id, candidate_username=username, answers=answers, score=score)
-"""
