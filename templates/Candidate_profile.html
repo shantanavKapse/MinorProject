@@ -1,19 +1,105 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/CandidateProfile.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/CandidateProfile.css')}}">
 {% endblock %}
 {% block title %}
-  Home | Profile
+Home | Profile
 {% endblock %}
 
 {% block body %}
-<div>
+<!-- <div class="main-profile-cont">
+    <div class="profile-det">
+        <div class="profile-pic-cont">
+            <img class="profile-image" src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture">
+        </div>
+        <div class="profile-det-cont">
+            <div class="username-cont">
+                <p class="firstname-profile">{{candidate.firstname}} {{candidate.lastname}}</p>
+                <button class="edit-profile-btn">Edit Profile</button>
+            </div>
+            <p>{{candidate.username}}</p>
+            <div class="profile-info-det-row">
+                <div><p>Email:</p> <p>{{candidate.email}}</p></div>
+                <div><p>Gender:</p> <p>{{candidate.gender.value}}</p></div>
+                <div><p>Github Profile:</p> <p>{{candidate.github}}</p></div>
+                <div><p>LinkedIn Profile:</p> <p>{{candidate.linkedin}}</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="skill-graph">
+        <div class="skill-cont">
+            <p class="skill-head">
+                Skills
+            </p>
+            <ul class="skills">
+                {% for skill in skills %}
+                <li>{{skill.name}} ({{skill.level}})</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="graph-cont">
+            {% if results %}
+                <div class="profile-graph">
+                    <canvas id="myChart" style="width: 100%;max-width: 700px;"></canvas>
+                </div>
+            {% endif %}
+        </div>
+    </div> -->
+<div class="proifle-row">
+    <div class="profile-img-div">
+        <img class="profile-image" src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture">
+    </div>
+    <div class="profile-details">
+        <div style="display: flex;">
+            <p class="firstname-profile">{{candidate.firstname}} {{candidate.lastname}}</p>
+            <button class="edit-profile-btn">Edit Profile</button>
+        </div>
+        <p class="username-profile"><i>{{candidate.username}}</i></p>
+        <div class="d-flex">
+            <div class="profile-info">
+                <p>Email :</p>
+                <p>Gender :</p>
+                <p>LinkedIn :</p>
+                <p>Github :</p>
+            </div>
+            <div class="profile-info-details">
+                <p>{{candidate.email}}</p>
+                <p>{{candidate.gender.value}}</p>
+                <p>{{candidate.linkedin}}</p>
+                <p>{{candidate.github}}</p>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+<div class="skill-graph-div">
+    <div class="skill-col">
+        <p class="skills-heading">Skills</p>
+        <ul class="skill-ul">
+            {% for skill in skills %}
+            <li class="skill-li"> {{ skill.name }} ({{ skill.level }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="graph-col">
+        {% if results %}
+        <div class="profile-graph">
+            <canvas id="myChart" style="width: 100%;max-width: 700px;"></canvas>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="btn-conainer">
+    <div class="profile-buttons">
+        <button class="pro-btn">Reset Password</button>
+        <button class="pro-btn">
+            <a href="{{ url_for('personality_test') }}" style="text-decoration: none; color: white;" class="">Take Test</a>
+        </button>
+    </div>
+</div>
+<!-- <div>
     <div class="profile-page-profile-pic">
-    {% if profile_pic %}
     <img src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture" >
-    {% else %}
-    <img src="/static/img/default_user.png" alt="Profile Picture" >
-    {% endif %}
 </div> 
     
     <p> User: {{candidate.username}}<br>
@@ -23,7 +109,6 @@
         Gender : {{candidate.gender.value}}<br>    
         LinkedIn URL : {{candidate.linkedin}}<br>
         Github URL : {{candidate.github}}<br>
-        About Me : {{candidate.about_me}}<br>
         Predicted personality : <br>
         Skills : 
         {% for skill in skills %}
@@ -40,49 +125,50 @@
 {% endif %}
 <a herf="#" class="">Reset Password</a><br>
 <a href="{{ url_for('auth.logout') }}" class="">Logout</a>
-<a href="{{ url_for('editprofile', username=candidate.username) }}" class="">Edit Profile</a>
+<a href="{{ url_for('editprofile', username=candidate.username) }}" class="">Edit Profile</a> -->
+
 
 {% endblock %}
 
 {% block js %}
 {% if results %}
 <script>
-    var labels ={{labels|tojson}};
-    var data = {{data|tojson}};
+    var labels = {{ labels| tojson}};
+    var data = {{ data| tojson}};
     new Chart("myChart", {
         type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Personality Results',
-            data: data,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Personality Results',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
             }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-    }
-});
+    });
 </script>
 {% endif %}
 {% endblock %}

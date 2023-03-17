@@ -1,15 +1,101 @@
-
-.profile-page-profile-pic{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    float: left;
-    margin-top: 15px;
-    margin-left: 15px;
-
+.profile-image{
+    width: 250px;
+    height: 250px;
 }
- 
-.profile-page-profile-pic img {
-    width: 100%;
+.proifle-row{
+    display: flex;
+    justify-content: space-evenly;
+}
+.firstname-profile{
+    text-transform: capitalize;
+    font-size: 2rem;
+}
+.username-profile{
+    font-size: 1rem;
+    color: #d63384;
+}
+.profile-details{
+    margin-top: 3rem;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+.profile-img-div{
+    margin-top: 3rem;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-info{
+    width: 25%;
+}
+.profile-info-details{
+    width: 25%;
+}
+.skill-ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    padding: 1rem 0;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+::-webkit-scrollbar{
+    color: white;
+}
+.skill-li{
+    width: fit-content;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    padding: 0.3rem 0.5rem;
+    margin-top: 0.5rem;
+}
+.skills-heading{
+    font-size: 1.5rem;
+    font-family: monospace;
+    margin-top: 2.5rem;
+}
+.skill-graph-div{
+    display: flex;
+    justify-content: space-evenly;
+}
+.skill-col{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.graph-col{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+.edit-profile-btn{
+    margin-top: 10px;
+    margin-left: 10px;
+    height: fit-content;
+    background-color: #24a0ed;
+    color: white;
+    border-radius: 5px;
+}
+.btn-conainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+}
+.profile-buttons{
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.pro-btn{
+    background-color: #24a0ed;
+    color: white;
+    border-radius: 5px;
+    padding: 0.3rem 1rem;
 }
