@@ -4,10 +4,12 @@ import numpy as np
 import joblib
 from nltk.tokenize import word_tokenize
 from app import db
-from models import Skill, Candidate_skills, Candidate
+from models import Skill, Candidate_skills, Candidate, TechnicalTest
 from PyPDF2 import PdfReader
+from sentence_transformers import CrossEncoder
 
-model = joblib.load('personality_predict.joblib')
+personality_model = joblib.load('personality_predict.joblib')
+similarity_model = CrossEncoder('cross-encoder/stsb-roberta-base')
 questions = open('questions.json', 'r').read()
 questions = json.loads(questions)
 q_ids = list(questions['questions'].keys())
@@ -29,9 +31,7 @@ def predict_personality(data):
     init_arr[indices] = [x for x in data.values()]
     nis = (init_arr - 1) / 4
 
-
-    cluster = model.predict([nis])
-
+    cluster = personality_model.predict([nis])
     ans_vals = (init_arr[indices]-3)*answer_type[indices]
 
     ans = []
@@ -67,3 +67,17 @@ def add_skills(username):
             new_skill = Candidate_skills(candidate_username=username, skill_id=SKILLS[skill], level='Intermediate')
             db.session.add(new_skill)
             db.session.commit()
+
+
+def check_similarity(username, tech_test_id):
+    resume = Candidate.query.filter_by(username=username).first().resume
+    if resume:
+        pdf_loc = './uploads/Resumes/' + resume
+        reader = PdfReader(pdf_loc)
+        resume_text = ''
+        for p in reader.pages:
+            resume_text += (p.extract_text() + '\n')
+        test_desc = TechnicalTest.query.filter_by(id=tech_test_id).first().job_role
+        return round(similarity_model.predict([resume_text, test_desc])*100, 2)
+    else:
+        return None

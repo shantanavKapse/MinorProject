@@ -1,0 +1,11 @@
+.test-desc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 60px 0;
+}
+
+.test-result{
+    padding: 20px;
+}

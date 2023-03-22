@@ -47,12 +47,16 @@ Home | Profile
     </div> -->
 <div class="proifle-row">
     <div class="profile-img-div">
+        {% if profile_pic %}
         <img class="profile-image" src="/uploads/ProfilePic/{{ profile_pic }}" alt="Profile Picture">
+        {% else %}
+        <img class="profile-image" src="/static/img/default_user.png" alt="Profile Picture">
+        {% endif %}
     </div>
     <div class="profile-details">
         <div style="display: flex;">
             <p class="firstname-profile">{{candidate.firstname}} {{candidate.lastname}}</p>
-            <button class="edit-profile-btn">Edit Profile</button>
+            <button class="edit-profile-btn" onclick="window.location='/edit-profile';">Edit Profile</button>
         </div>
         <p class="username-profile"><i>{{candidate.username}}</i></p>
         <div class="d-flex">

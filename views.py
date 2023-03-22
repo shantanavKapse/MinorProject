@@ -7,7 +7,7 @@ import models
 from app import app , db
 from flask import render_template,  request, redirect, send_from_directory, url_for , flash, jsonify, abort
 from models import TechnicalQuestion, Test, Question, Company, Candidate , Candidate_skills , Skill , Personality_result , TechnicalTest , TechnicalAnswer , Question_test
-from personality_predict import predict_personality
+from personality_predict import predict_personality, check_similarity
 import random
 
 
@@ -198,7 +198,7 @@ def editprofile():
             candidate.lastname=request.form.get('lastname')
             candidate.linkedin=request.form.get('linkedin')
             candidate.github=request.form.get('github')
-            candidate.about_me=request.form.get('about_me')
+            candidate.about_me=request.form.get('about_me').strip()
             
             db.session.commit()
 
@@ -428,9 +428,16 @@ def search():
 
 @app.route('/test-result/<test_id>/<username>' , methods=['GET', 'POST'])
 @login_required
-def test_result(username , test_id):
+def test_result(username, test_id):
     answers = TechnicalAnswer.query.join(TechnicalQuestion).join(Question_test).join(TechnicalTest).filter(TechnicalAnswer.candidate_username == username).filter(TechnicalTest.id == test_id).all()
+    test = TechnicalTest.query.filter_by(id=test_id).first()
     # Calculate the candidate's score
     num_correct = sum(1 for answer in answers if answer.is_correct)
-    score = round((num_correct / len(answers)) * 100, 2)
-    return render_template('testresult.html', test_id=test_id, candidate_username=username, answers=answers, score=score)
+    if answers:
+        score = round((num_correct / len(answers)) * 100, 2)
+    else:
+        score = 0.0
+    # job compatible
+    sim_score = check_similarity(username, test_id)
+    return render_template('testresult.html', test_id=test_id, candidate_username=username, answers=answers, score=score,
+                           sim_score=sim_score, test=test)

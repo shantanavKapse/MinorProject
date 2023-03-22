@@ -27,11 +27,7 @@ Home | Edit-Profile
                     <h2 style="color: #d63384;">Profile Settings</h2>
                 </div>
                 <div class="col-md-12 col-sm-6 text-center">
-                    
-                    <textarea class="input-large textarea-desc" name="about_me" id="" cols="40" rows="5">
-                        {{candidate.about_me or ""}}
-                    </textarea>
-                    
+                    <textarea style="margin-top: 50px;" class="input-large textarea-desc" name="about_me" cols="40" rows="5">{{candidate.about_me or ""}}</textarea>
                 </div>
             </div>
         </div>
@@ -90,12 +86,12 @@ Home | Edit-Profile
                                 <div class="col-md-6">
                                     <h5 class="labels">Skills :</h5>
                                     <div class="new-skills" id="skillbox">
-                                        <ul class="ul-newSkills">
-                                            <div  class="scrollbar" style="overflow-y:auto; height: 150px; width: max-content; ">
+                                        <ul class="ul-newSkills" style="padding-left: 0;">
+                                            <div  class="scrollbar" style="overflow-y:auto; height: 150px; width: 300px; padding: 10px;">
                                                 {% if skills %}
                                                     {% for skill in skills %}
-                                                        <li style="display: block; font-size: 1.1vw;"> <span class="skill">{{ skill.name }} ({{ skill.level }})</span>
-                                                            <button type="button" class="bi bi-trash delete-skill" data-skillid="{{skill.id}}" data-userid="{{current_user.username}}"></button>
+                                                        <li style="display: flex; font-size: 1.1vw; width: 100%; height: fit-content; justify-content: space-between;"> <span class="skill">{{ skill.name }} ({{ skill.level }})</span>
+                                                            <button style="max-height: 36px;" type="button" class="bi bi-trash delete-skill" data-skillid="{{skill.id}}" data-userid="{{current_user.username}}"></button>
                                                             <!--<span id="boot-icon" class="bi bi-trash"></span>-->
                                                         </li>
                                                     {% endfor %}

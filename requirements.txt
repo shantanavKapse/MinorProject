@@ -7,3 +7,4 @@ flask-mail
 flask-migrate==4.0.4
 nltk
 pypdf2
+sentence-transformers

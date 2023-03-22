@@ -3,20 +3,37 @@
 
 {% block header %}
   <h1>{% block title %}Result{% endblock %}</h1>
+  {% block css %}
+  <link rel="stylesheet" href="{{url_for('static', filename='css/test_result.css')}}">
+  {% endblock %}
 {% endblock %}
 
 {% block body %}
 
-<h1>Test Result</h1>
-<p>Score: {{ score }}/{{ total_score }}</p>
-{% for question in questions %}
-  {% if question.user_answer.is_correct %}
-    <p>Question {{ loop.index }}. {{ question.question }}</p>
-    <p>Your answer: {{ question.user_answer.answer }} (correct)</p>
-  {% else %}
-    <p>Question {{ loop.index }}. {{ question.question }}</p>
-    <p>Your answer: {{ question.user_answer.answer }}</p>
-    <p>Correct answer: {{ question.correctoption }}</p>
-  {% endif %}
-{% endfor %}
+<div class="main-cont">
+  <div class="test-desc">
+    <h1>Test Result</h1>
+    <h3>{{test.name}}</h3>
+    <span>By {{test.owner_company}}</span>
+  </div>
+  <div class="test-result">
+    {% if sim_score %}
+    <h5>Your resume matches the job role {{sim_score}}%</h5>
+    {% else %}
+    <h5>You did not provide your resume, so we can't check the compatibility with the job role.</h5>
+    {% endif %}
+    <p>Score: {{ score }}/100.0</p>
+    {% for question in questions %}
+      {% if question.user_answer.is_correct %}
+        <p>Question {{ loop.index }}. {{ question.question }}</p>
+        <p>Your answer: {{ question.user_answer.answer }} (correct)</p>
+      {% else %}
+        <p>Question {{ loop.index }}. {{ question.question }}</p>
+        <p>Your answer: {{ question.user_answer.answer }}</p>
+        <p>Correct answer: {{ question.correctoption }}</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock %}

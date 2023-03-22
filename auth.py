@@ -52,7 +52,7 @@ def signup_candidate():
             login_user(user)
             add_skills(user.username)
             flash(f"Successfully registered candidate, {firstname}")
-            return redirect(url_for('views.home'))
+            return redirect(url_for('home'))
         except IntegrityError:
             flash('Given Field(s) should satisfy all the requirements. Field(s) not unique.', 'error')
 
